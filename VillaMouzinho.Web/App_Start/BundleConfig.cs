@@ -26,6 +26,30 @@ namespace VillaMouzinho.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // Backoffice
+            bundles.Add(new StyleBundle("~/Content/backoffice-css").Include(
+                    "~/Content/Backoffice/bootstrap.min.css",
+                    "~/Content/Backoffice/default-css.css",
+                    "~/Content/Backoffice/font-awesome.min.css",
+                    "~/Content/Backoffice/metisMenu.css",
+                    "~/Content/Backoffice/owl.carousel.min.css",
+                    "~/Content/Backoffice/responsive.css",
+                    "~/Content/Backoffice/slicknav.min.css",
+                    "~/Content/Backoffice/styles.css",
+                    "~/Content/Backoffice/themify-icons.css",
+                    "~/Content/Backoffice/typography.css"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/backoffice-js").Include(
+                  "~/Scripts/Backoffice/vendor/jquery-2.2.4.min.js",
+                  "~/Scripts/Backoffice/popper.min.js",
+                  "~/Scripts/Backoffice/bootstrap.min.js",
+                  "~/Scripts/Backoffice/owl.carousel.min.js",
+                  "~/Scripts/Backoffice/metisMenu.min.js",
+                  "~/Scripts/Backoffice/jquery.slimscroll.min.js",
+                  "~/Scripts/Backoffice/jquery.slicknav.min.js",
+                  "~/Scripts/Backoffice/plugins.js",
+                  "~/Scripts/Backoffice/scripts.js"));
         }
     }
 }

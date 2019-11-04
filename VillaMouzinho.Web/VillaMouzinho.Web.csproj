@@ -226,19 +226,51 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Backoffice\bootstrap.min.css" />
+    <Content Include="Content\Backoffice\default-css.css" />
+    <Content Include="Content\Backoffice\font-awesome.min.css" />
+    <Content Include="Content\Backoffice\metisMenu.css" />
+    <Content Include="Content\Backoffice\owl.carousel.min.css" />
+    <Content Include="Content\Backoffice\responsive.css" />
+    <Content Include="Content\Backoffice\slicknav.min.css" />
+    <Content Include="Content\Backoffice\styles.css" />
+    <Content Include="Content\Backoffice\themify-icons.css" />
+    <Content Include="Content\Backoffice\typography.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\themify.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="Scripts\Backoffice\bar-chart.js" />
+    <Content Include="Scripts\Backoffice\bootstrap.min.js" />
+    <Content Include="Scripts\Backoffice\jquery.slicknav.min.js" />
+    <Content Include="Scripts\Backoffice\jquery.slimscroll.min.js" />
+    <Content Include="Scripts\Backoffice\line-chart.js" />
+    <Content Include="Scripts\Backoffice\maps.js" />
+    <Content Include="Scripts\Backoffice\metisMenu.min.js" />
+    <Content Include="Scripts\Backoffice\owl.carousel.min.js" />
+    <Content Include="Scripts\Backoffice\pie-chart.js" />
+    <Content Include="Scripts\Backoffice\plugins.js" />
+    <Content Include="Scripts\Backoffice\popper.min.js" />
+    <Content Include="Scripts\Backoffice\scripts.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\themify.eot" />
+    <Content Include="fonts\themify.ttf" />
+    <Content Include="fonts\themify.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -285,9 +317,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_Layout-Authentication.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\Backoffice\vendor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

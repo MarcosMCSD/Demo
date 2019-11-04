@@ -2,9 +2,63 @@
 @model LoginViewModel
 @{
     ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_Layout-Authentication.cshtml";
 }
 
-<h2>@ViewBag.Title.</h2>
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+<!-- preloader area end -->
+<!-- login area start -->
+<div class="login-area">
+    <div class="container">
+        <div class="login-box ptb--100">
+           @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+           {
+                @Html.AntiForgeryToken()
+                <div class="login-form-head">
+                    <h4>Sign In</h4>
+                    <p>Hello there, Sign in and start managing your Admin Template</p>
+                </div>
+                <div class="login-form-body">
+                    <div class="form-gp">
+                        @Html.LabelFor(m => m.Email, new { @for = "exampleInputEmail1" })
+                        @Html.TextBoxFor(m => m.Email, new { id = "exampleInputEmail1" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        <i class="ti-email"></i>
+                        <div class="text-danger"></div>
+                    </div>
+                    <div class="form-gp">
+                        @Html.LabelFor(m => m.Password, new { @for = "exampleInputPassword1" })
+                        @Html.PasswordFor(m => m.Password, new { id = "exampleInputPassword1" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        <i class="ti-lock"></i>
+                        <div class="text-danger"></div>
+                    </div>
+                    <div class="row mb-4 rmber-area">
+                        <div class="col-6">
+                            <div class="custom-control custom-checkbox mr-sm-2">
+                                <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                                <label class="custom-control-label" for="customControlAutosizing">Remember Me</label>
+                            </div>
+                        </div>
+                        <div class="col-6 text-right">
+                            <a href="#">Forgot Password?</a>
+                        </div>
+                    </div>
+                    <div class="submit-btn-area">
+                        <button id="form_submit" type="submit">Submit <i class="ti-arrow-right"></i></button>                     
+                    </div>
+                    <div class="form-footer text-center mt-5">
+                        <p class="text-muted">Don't have an account? <a href="register.html">Sign up</a></p>
+                    </div>
+                </div>
+           }
+        </div>
+    </div>
+</div>
+
+@*<h2>@ViewBag.Title.</h2>
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
@@ -44,10 +98,10 @@
                 <p>
                     @Html.ActionLink("Register as a new user", "Register")
                 </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
+                 Enable this once you have account confirmation enabled for password reset functionality
                     <p>
                         @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
+                    </p>
             }
         </section>
     </div>
@@ -56,7 +110,7 @@
             @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
         </section>
     </div>
-</div>
+</div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
