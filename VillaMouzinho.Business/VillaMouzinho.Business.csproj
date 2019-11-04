@@ -30,14 +30,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,14 +51,70 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB\aspnetroles.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\aspnetuserclaims.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\aspnetuserlogins.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\aspnetuserroles.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\aspnetusers.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\aspnetuser_recover_password_token.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\C__migrationhistory.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\db.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>db.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\db.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\db.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>db.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="DB\db.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>db.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DB\db.edmx.diagram">
+      <DependentUpon>db.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="DB\" />
+    <Content Include="DB\db.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>db.edmx</DependentUpon>
+      <LastGenOutput>db.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DB\db.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>db.edmx</DependentUpon>
+      <LastGenOutput>db.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

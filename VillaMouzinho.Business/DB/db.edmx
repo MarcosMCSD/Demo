@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__migrationhistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ContextKey" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Model" Type="longblob" Nullable="false" />
+          <Property Name="ProductVersion" Type="varchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnetroles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnetuser_recover_password_token">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TOKEN" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="IS_BLOCKED" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnetuserclaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="longtext" />
+          <Property Name="ClaimValue" Type="longtext" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.villa_mouzinho.aspnetuserlogins' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="aspnetuserlogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnetuserroles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="varchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnetusers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bool" Nullable="false" />
+          <Property Name="PasswordHash" Type="longtext" />
+          <Property Name="SecurityStamp" Type="longtext" />
+          <Property Name="PhoneNumber" Type="longtext" />
+          <Property Name="PhoneNumberConfirmed" Type="bool" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bool" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" Precision="0" />
+          <Property Name="LockoutEnabled" Type="bool" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="ImageUrl" Type="varchar" MaxLength="300" />
+          <Property Name="ImageBlob" Type="blob" />
+        </EntityType>
+        <EntityContainer Name="dbModelStoreContainer">
+          <EntitySet Name="__migrationhistory" EntityType="Self.__migrationhistory" Schema="villa_mouzinho" store:Type="Tables" />
+          <EntitySet Name="aspnetroles" EntityType="Self.aspnetroles" Schema="villa_mouzinho" store:Type="Tables" />
+          <EntitySet Name="aspnetuser_recover_password_token" EntityType="Self.aspnetuser_recover_password_token" Schema="villa_mouzinho" Table="aspnetuser.recover_password_token" store:Type="Tables" />
+          <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaims" Schema="villa_mouzinho" store:Type="Tables" />
+          <EntitySet Name="aspnetuserroles" EntityType="Self.aspnetuserroles" Schema="villa_mouzinho" store:Type="Tables" />
+          <EntitySet Name="aspnetusers" EntityType="Self.aspnetusers" Schema="villa_mouzinho" store:Type="Tables" />
+          <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogins" store:Type="Tables" store:Schema="villa_mouzinho">
+            <DefiningQuery>SELECT
+`aspnetuserlogins`.`LoginProvider`, 
+`aspnetuserlogins`.`ProviderKey`, 
+`aspnetuserlogins`.`UserId`
+FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__migrationhistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnetroles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnetuser_recover_password_token">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TOKEN" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IS_BLOCKED" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnetuserclaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="ClaimValue" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="aspnetuserroles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RoleId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnetusers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ImageBlob" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="aspnetuserlogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__migrationhistory" EntityType="Self.C__migrationhistory" />
+          <EntitySet Name="aspnetroles" EntityType="Self.aspnetroles" />
+          <EntitySet Name="aspnetuser_recover_password_token" EntityType="Self.aspnetuser_recover_password_token" />
+          <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaims" />
+          <EntitySet Name="aspnetuserroles" EntityType="Self.aspnetuserroles" />
+          <EntitySet Name="aspnetusers" EntityType="Self.aspnetusers" />
+          <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogins" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbModelStoreContainer" CdmEntityContainer="dbEntities">
+          <EntitySetMapping Name="C__migrationhistory">
+            <EntityTypeMapping TypeName="dbModel.C__migrationhistory">
+              <MappingFragment StoreEntitySet="__migrationhistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnetroles">
+            <EntityTypeMapping TypeName="dbModel.aspnetroles">
+              <MappingFragment StoreEntitySet="aspnetroles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnetuser_recover_password_token">
+            <EntityTypeMapping TypeName="dbModel.aspnetuser_recover_password_token">
+              <MappingFragment StoreEntitySet="aspnetuser_recover_password_token">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="TOKEN" ColumnName="TOKEN" />
+                <ScalarProperty Name="IS_BLOCKED" ColumnName="IS_BLOCKED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnetuserclaims">
+            <EntityTypeMapping TypeName="dbModel.aspnetuserclaims">
+              <MappingFragment StoreEntitySet="aspnetuserclaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnetuserroles">
+            <EntityTypeMapping TypeName="dbModel.aspnetuserroles">
+              <MappingFragment StoreEntitySet="aspnetuserroles">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnetusers">
+            <EntityTypeMapping TypeName="dbModel.aspnetusers">
+              <MappingFragment StoreEntitySet="aspnetusers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="ImageBlob" ColumnName="ImageBlob" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnetuserlogins">
+            <EntityTypeMapping TypeName="dbModel.aspnetuserlogins">
+              <MappingFragment StoreEntitySet="aspnetuserlogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
