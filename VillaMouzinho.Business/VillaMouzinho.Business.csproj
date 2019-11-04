@@ -100,7 +100,9 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SQL Scripts\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="DB\db.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
