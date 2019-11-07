@@ -9,9 +9,28 @@ namespace VillaMouzinho.Web.Controllers
     [Authorize]
     public class BoardController : Controller
     {
-        // GET: Board
+        [HttpGet]
         public ActionResult Index()
         {
+            ViewBag.Title = "Dashboard";
+            return View();
+        }
+
+        /// <summary>
+        /// Attributes
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Attributes()
+        {
+            ViewBag.Title = "Atributos";
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult CreateAttribute()
+        {
+            ViewBag.Title = "Criar atributo";
             return View();
         }
     }

@@ -359,6 +359,8 @@
     <Content Include="Views\Shared\_Layout-Authentication.cshtml" />
     <Content Include="Views\Board\Index.cshtml" />
     <Content Include="Views\Shared\_Layout-Backoffice.cshtml" />
+    <Content Include="Views\Board\Attributes.cshtml" />
+    <Content Include="Views\Board\CreateAttribute.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
