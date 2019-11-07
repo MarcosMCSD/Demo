@@ -57,7 +57,7 @@ namespace VillaMouzinho.Web.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.ReturnUrl = !string.IsNullOrEmpty(returnUrl) ? returnUrl : "/Board/Index";
             return View();
         }
 
