@@ -69,6 +69,12 @@
     <Compile Include="DB\aspnetuser_recover_password_token.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\attributes.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\attributes_values.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\C__migrationhistory.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
@@ -100,9 +106,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SQL Scripts\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="DB\db.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -114,6 +118,7 @@
       <DependentUpon>db.edmx</DependentUpon>
       <LastGenOutput>db.cs</LastGenOutput>
     </Content>
+    <Content Include="SQL Scripts\scripts08112019.txt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

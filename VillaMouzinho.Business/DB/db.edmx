@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="dbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="dbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__migrationhistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -80,6 +80,22 @@ warning 6002: The table/view 'def.villa_mouzinho.aspnetuserlogins' does not have
           <Property Name="ImageUrl" Type="varchar" MaxLength="300" />
           <Property Name="ImageBlob" Type="blob" />
         </EntityType>
+        <EntityType Name="attributes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="attributes_values">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ATTRIBUTE_ID" Type="int" Nullable="false" />
+          <Property Name="VALUE" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="varchar" MaxLength="500" />
+        </EntityType>
         <EntityContainer Name="dbModelStoreContainer">
           <EntitySet Name="__migrationhistory" EntityType="Self.__migrationhistory" Schema="villa_mouzinho" store:Type="Tables" />
           <EntitySet Name="aspnetroles" EntityType="Self.aspnetroles" Schema="villa_mouzinho" store:Type="Tables" />
@@ -87,6 +103,8 @@ warning 6002: The table/view 'def.villa_mouzinho.aspnetuserlogins' does not have
           <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaims" Schema="villa_mouzinho" store:Type="Tables" />
           <EntitySet Name="aspnetuserroles" EntityType="Self.aspnetuserroles" Schema="villa_mouzinho" store:Type="Tables" />
           <EntitySet Name="aspnetusers" EntityType="Self.aspnetusers" Schema="villa_mouzinho" store:Type="Tables" />
+          <EntitySet Name="attributes" EntityType="Self.attributes" Schema="villa_mouzinho" store:Type="Tables" />
+          <EntitySet Name="attributes_values" EntityType="Self.attributes_values" Schema="villa_mouzinho" store:Type="Tables" />
           <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogins" store:Type="Tables" store:Schema="villa_mouzinho">
             <DefiningQuery>SELECT
 `aspnetuserlogins`.`LoginProvider`, 
@@ -95,8 +113,7 @@ warning 6002: The table/view 'def.villa_mouzinho.aspnetuserlogins' does not have
 FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -181,7 +198,25 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
           <EntitySet Name="aspnetuserroles" EntityType="Self.aspnetuserroles" />
           <EntitySet Name="aspnetusers" EntityType="Self.aspnetusers" />
           <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogins" />
+          <EntitySet Name="attributes" EntityType="dbModel.attributes" />
+          <EntitySet Name="attributes_values" EntityType="dbModel.attributes_values" />
         </EntityContainer>
+        <EntityType Name="attributes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="attributes_values">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ATTRIBUTE_ID" Type="Int32" Nullable="false" />
+          <Property Name="VALUE" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -261,6 +296,24 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="attributes">
+            <EntityTypeMapping TypeName="dbModel.attributes">
+              <MappingFragment StoreEntitySet="attributes">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="attributes_values">
+            <EntityTypeMapping TypeName="dbModel.attributes_values">
+              <MappingFragment StoreEntitySet="attributes_values">
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+                <ScalarProperty Name="ATTRIBUTE_ID" ColumnName="ATTRIBUTE_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -12,6 +12,8 @@
         <EntityTypeShape EntityType="dbModel.aspnetuserroles" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbModel.aspnetusers" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbModel.aspnetuserlogins" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.attributes" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="dbModel.attributes_values" Width="1.5" PointX="7.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

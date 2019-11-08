@@ -48,6 +48,7 @@ namespace VillaMouzinho.Web
                   "~/Scripts/Backoffice/metisMenu.min.js",
                   "~/Scripts/Backoffice/jquery.slimscroll.min.js",
                   "~/Scripts/Backoffice/jquery.slicknav.min.js",
+                  "~/Scripts/Backoffice/datatable.js",
                   "~/Scripts/Backoffice/plugins.js",
                   "~/Scripts/Backoffice/scripts.js"));
         }

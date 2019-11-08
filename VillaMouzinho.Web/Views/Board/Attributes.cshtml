@@ -1,7 +1,29 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout-Backoffice.cshtml";
 }
-
-<div class="col-12 text-right">
-    <a href="/Board/CreateAttribute" class="btn btn-primary mt-4 pr-4 pl-4">Criar atributo</a>
+<div class="main-content-inner">
+    <div class="row">
+        <div class="col-12 mt-5">
+            <div class="card">
+                <a href="/Board/CreateAttribute" style="position:absolute;top:1.5rem;right:1.5rem;"><span class="ti-plus"></span>&nbsp;Criar atributo</a>
+                <div class="card-body">
+                    <h4 class="header-title">@ViewBag.Title</h4>
+                    <table class="table text-left">
+                        <thead class="bg-light text-capitalize">
+                            <tr>
+                                <th>Nome</th>
+                                <th>Valores</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="cursor:pointer;" onclick="window.location.href='/Board/UpdateAttribute'">
+                                <td>Tipo de quarto</td>
+                                <th><span class="badge badge-primary">Quarto twin</span> <span class="badge badge-primary">Suite Júnior</span></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

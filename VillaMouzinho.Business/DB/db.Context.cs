@@ -32,5 +32,7 @@ namespace VillaMouzinho.Business.DB
         public DbSet<aspnetuserroles> aspnetuserroles { get; set; }
         public DbSet<aspnetusers> aspnetusers { get; set; }
         public DbSet<aspnetuserlogins> aspnetuserlogins { get; set; }
+        public DbSet<attributes> attributes { get; set; }
+        public DbSet<attributes_values> attributes_values { get; set; }
     }
 }
