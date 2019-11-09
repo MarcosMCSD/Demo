@@ -1,0 +1,78 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout-Backoffice.cshtml";
+}
+
+<div class="main-content-inner">
+    <div class="row">
+        <div class="col-lg-5 col-ml-12">
+            <div class="row">
+                <!-- Textual inputs start -->
+                <div class="col-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Criar Página</h4>
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="col-form-label">Estado&nbsp;<span class="text-danger">*</span></label>
+                                        <select class="form-control">
+                                            <option value="null" disabled selected>Seleccione estado</option>
+                                            <option value="1">Rascunho</option>
+                                            <option value="2">Publicado</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="col-form-label">Tipo&nbsp;<span class="text-danger">*</span></label>
+                                        <select class="form-control">
+                                            <option value="null" disabled selected>Seleccione tipo</option>
+                                            <option value="1">Artigo</option>
+                                            <option value="2">Blog</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="example-text-input" class="col-form-label">Título&nbsp;<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="example-text-input" class="col-form-label">URL Friendly&nbsp;<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="example-text-input" class="col-form-label">Localização&nbsp;<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-top:2rem;">
+                        <div class="card-body">
+                            <h4 class="header-title" style="text-transform:none;">Módulo de conteúdos</h4>
+                            <div class="alert alert-primary" style="cursor:pointer;" role="alert" onclick="addModule(1)">
+                                <h5><i class="fa fa-align-justify" style="vertical-align:middle;"></i>&nbsp;&nbsp;<small>Adicionar módulo conteúdo livre</small></h5>
+                            </div>  
+                            <div class="alert alert-primary" style="cursor:pointer;" role="alert" onclick="addModule(2)">
+                                <h5><i class="fa fa-bed" style="vertical-align:middle;"></i>&nbsp;&nbsp;<small>Adicionar módulo quarto</small></h5>                                
+                            </div>                                                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 col-ml-12">
+            <div class="row mt-5" id="page-module-wrapper">
+                <!-- basic form start -->              
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function addModule(id) {
+        $.get('/Board/GetModule?id=' + id, function (response) {
+            $('#page-module-wrapper').append(response);
+        });
+    }
+</script>
