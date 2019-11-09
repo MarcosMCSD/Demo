@@ -114,5 +114,30 @@ namespace VillaMouzinho.Web.Controllers
 
             return RedirectToAction("Attributes", "Board", new { Message = "Atributo editado com sucesso" });
         }
+
+        /// <summary>
+        /// CMS Content
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult CreatePage()
+        {
+            ViewBag.Title = "Criar página";
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult GetModule(int id)
+        {
+            if (id == 1)
+            {
+                ViewBag.RefModule = Guid.NewGuid();
+                return PartialView("~/Views/Board/Modules/Create/_Content.cshtml");
+            }
+            else
+            {
+                return PartialView("~/Views/Board/Modules/Create/_Content.cshtml");
+            }
+        }
     }
 }

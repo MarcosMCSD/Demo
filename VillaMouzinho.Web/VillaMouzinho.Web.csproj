@@ -368,6 +368,8 @@
     <Content Include="Views\Board\Attributes.cshtml" />
     <Content Include="Views\Board\CreateAttribute.cshtml" />
     <Content Include="Views\Board\UpdateAttribute.cshtml" />
+    <Content Include="Views\Board\CreatePage.cshtml" />
+    <Content Include="Views\Board\Modules\Create\_Content.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

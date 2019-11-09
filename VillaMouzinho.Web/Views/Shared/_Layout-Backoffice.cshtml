@@ -6,9 +6,12 @@
     <title>@ViewBag.Title - Backoffice</title>
     @Styles.Render("~/Content/backoffice-css")
     @Scripts.Render("~/bundles/modernizr")
+
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <link href="~/Content/Backoffice/toastr.min.css" rel="stylesheet" />
     <script src="~/Scripts/Backoffice/toastr.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 </head>
 <body>
     <!--[if lt IE 8]>
@@ -543,7 +546,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>      
     </div>
     <!-- page container area end -->
     @Scripts.Render("~/Scripts/backoffice-js")
