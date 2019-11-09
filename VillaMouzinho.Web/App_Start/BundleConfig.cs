@@ -41,7 +41,6 @@ namespace VillaMouzinho.Web
                     "~/Content/Backoffice/typography.css"));
 
             bundles.Add(new ScriptBundle("~/Scripts/backoffice-js").Include(
-                  "~/Scripts/Backoffice/vendor/jquery-2.2.4.min.js",
                   "~/Scripts/Backoffice/popper.min.js",
                   "~/Scripts/Backoffice/bootstrap.min.js",
                   "~/Scripts/Backoffice/owl.carousel.min.js",
