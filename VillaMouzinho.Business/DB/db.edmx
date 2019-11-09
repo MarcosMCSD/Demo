@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="dbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="dbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__migrationhistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -14,16 +14,6 @@
           <Property Name="ContextKey" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="Model" Type="longblob" Nullable="false" />
           <Property Name="ProductVersion" Type="varchar" MaxLength="32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="app_countries">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NAME" Type="varchar" MaxLength="300" Nullable="false" />
-          <Property Name="COD_ALPHA2" Type="varchar" MaxLength="5" />
-          <Property Name="COD_ALPHA3" Type="varchar" MaxLength="5" />
-          <Property Name="ACTIVE" Type="bit" />
         </EntityType>
         <EntityType Name="aspnetroles">
           <Key>
@@ -120,7 +110,6 @@ warning 6002: The table/view 'def.villa_mouzinho.aspnetuserlogins' does not have
         </Association>
         <EntityContainer Name="dbModelStoreContainer">
           <EntitySet Name="__migrationhistory" EntityType="Self.__migrationhistory" Schema="villa_mouzinho" store:Type="Tables" />
-          <EntitySet Name="app_countries" EntityType="Self.app_countries" Schema="villa_mouzinho" store:Type="Tables" />
           <EntitySet Name="aspnetroles" EntityType="Self.aspnetroles" Schema="villa_mouzinho" store:Type="Tables" />
           <EntitySet Name="aspnetuser_recover_password_token" EntityType="Self.aspnetuser_recover_password_token" Schema="villa_mouzinho" Table="aspnetuser.recover_password_token" store:Type="Tables" />
           <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaims" Schema="villa_mouzinho" store:Type="Tables" />
@@ -154,16 +143,6 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
           <Property Name="ContextKey" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
-        <EntityType Name="app_countries">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NAME" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="COD_ALPHA2" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="COD_ALPHA3" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="ACTIVE" Type="Boolean" />
         </EntityType>
         <EntityType Name="aspnetroles">
           <Key>
@@ -260,7 +239,6 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
         </Association>
         <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__migrationhistory" EntityType="Self.C__migrationhistory" />
-          <EntitySet Name="app_countries" EntityType="Self.app_countries" />
           <EntitySet Name="aspnetroles" EntityType="Self.aspnetroles" />
           <EntitySet Name="aspnetuser_recover_password_token" EntityType="Self.aspnetuser_recover_password_token" />
           <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaims" />
@@ -287,17 +265,6 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="app_countries">
-            <EntityTypeMapping TypeName="dbModel.app_countries">
-              <MappingFragment StoreEntitySet="app_countries">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="COD_ALPHA2" ColumnName="COD_ALPHA2" />
-                <ScalarProperty Name="COD_ALPHA3" ColumnName="COD_ALPHA3" />
-                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -41,7 +41,7 @@ namespace VillaMouzinho.Web.Controllers
             return View();
         }
 
-        [HttpPost] // Ouriço para a demo vai só com 2 valores.
+        [HttpPost]
         public ActionResult CreateAttribute(string name, string value1, string description1, string value2, string description2)
         {
             var attribute = new attributes() {
