@@ -51,9 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DB\app_countries.cs">
-      <DependentUpon>db.tt</DependentUpon>
-    </Compile>
     <Compile Include="DB\aspnetroles.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
