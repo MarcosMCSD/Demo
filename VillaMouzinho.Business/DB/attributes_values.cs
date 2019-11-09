@@ -18,5 +18,7 @@ namespace VillaMouzinho.Business.DB
         public int ATTRIBUTE_ID { get; set; }
         public string VALUE { get; set; }
         public string DESCRIPTION { get; set; }
+    
+        public virtual attributes attributes { get; set; }
     }
 }

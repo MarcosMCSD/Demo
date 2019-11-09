@@ -1,6 +1,8 @@
-﻿@{
+﻿@model VillaMouzinho.Web.Models.AttributesModel
+@{
     Layout = "~/Views/Shared/_Layout-Backoffice.cshtml";
 }
+
 <div class="main-content-inner">
     <div class="row">
         <div class="col-12 mt-5">
@@ -16,10 +18,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="cursor:pointer;" onclick="window.location.href='/Board/UpdateAttribute'">
-                                <td>Tipo de quarto</td>
-                                <th><span class="badge badge-primary">Quarto twin</span> <span class="badge badge-primary">Suite Júnior</span></th>
-                            </tr>
+                            @foreach (var item in Model.Attributes)
+                            {
+                                <tr style="cursor:pointer;" onclick="window.location.href='/Board/UpdateAttribute/@item.ID'">
+                                    <td>@item.NAME</td>
+                                    <td>
+                                        @foreach (var value in item.attributes_values)
+                                        {
+                                            <span class="badge badge-primary">@value.VALUE</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+
+                            @if (!Model.Attributes.Any())
+                            {
+                                <tr>
+                                    <td colspan="2">Não existem atributos</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -27,3 +44,28 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    };
+
+    var message = getUrlParameter('Message');
+
+    if (message != "" && message != "undefined") {
+        toastr.info(message)
+    }
+
+</script>

@@ -12,16 +12,12 @@ namespace VillaMouzinho.Business.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class attributes
+    public partial class app_countries
     {
-        public attributes()
-        {
-            this.attributes_values = new HashSet<attributes_values>();
-        }
-    
         public int ID { get; set; }
         public string NAME { get; set; }
-    
-        public virtual ICollection<attributes_values> attributes_values { get; set; }
+        public string COD_ALPHA2 { get; set; }
+        public string COD_ALPHA3 { get; set; }
+        public Nullable<bool> ACTIVE { get; set; }
     }
 }

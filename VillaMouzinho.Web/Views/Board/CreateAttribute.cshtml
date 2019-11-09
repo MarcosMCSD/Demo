@@ -4,6 +4,9 @@
 
 <!-- page title area end -->
 <div class="main-content-inner">
+@using (Html.BeginForm("CreateAttribute", "Board", FormMethod.Post, new { role = "form", @id = "mainform" }))
+{
+    @Html.AntiForgeryToken()
     <div class="row">
         <div class="col-lg-6 col-ml-12">
             <div class="row">
@@ -15,7 +18,7 @@
                             <p class="text-muted font-14 mb-4">Adicione novo atributo e os respectivos valores</p>
                             <div class="form-group">
                                 <label for="example-text-input" class="col-form-label">Nome</label>
-                                <input class="form-control" type="text" value="" id="example-text-input">
+                                <input class="form-control" type="text" required id="name" name="name">
                             </div>
                         </div>
                     </div>
@@ -33,25 +36,25 @@
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-form-label">Valor 1</label>
-                                        <input class="form-control" type="text" value="" id="example-text-input">
+                                        <input class="form-control" required type="text" value="" id="value1" name="value1">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-form-label">Descrição 1</label>
-                                        <input class="form-control" type="text" value="" id="example-text-input">
+                                        <input class="form-control" type="text" value="" id="description1" name="description1">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-form-label">Valor 2</label>
-                                        <input class="form-control" type="text" value="" id="example-text-input">
+                                        <input class="form-control" required type="text" value="" id="value2" name="value2">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-form-label">Descrição 2</label>
-                                        <input class="form-control" type="text" value="" id="example-text-input">
+                                        <input class="form-control" type="text" value="" id="description2" name="description2">
                                     </div>
                                 </div>
                                 <div class="col-12 text-right" style="margin-top:1.5rem;">
@@ -64,6 +67,7 @@
             </div>
         </div>
     </div>
+}
 </div>
 
 

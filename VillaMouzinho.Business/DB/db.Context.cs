@@ -26,13 +26,14 @@ namespace VillaMouzinho.Business.DB
         }
     
         public DbSet<C__migrationhistory> C__migrationhistory { get; set; }
+        public DbSet<app_countries> app_countries { get; set; }
         public DbSet<aspnetroles> aspnetroles { get; set; }
         public DbSet<aspnetuser_recover_password_token> aspnetuser_recover_password_token { get; set; }
         public DbSet<aspnetuserclaims> aspnetuserclaims { get; set; }
         public DbSet<aspnetuserroles> aspnetuserroles { get; set; }
         public DbSet<aspnetusers> aspnetusers { get; set; }
-        public DbSet<aspnetuserlogins> aspnetuserlogins { get; set; }
         public DbSet<attributes> attributes { get; set; }
         public DbSet<attributes_values> attributes_values { get; set; }
+        public DbSet<aspnetuserlogins> aspnetuserlogins { get; set; }
     }
 }

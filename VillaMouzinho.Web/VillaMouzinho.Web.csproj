@@ -221,6 +221,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AttributesModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -236,6 +237,7 @@
     <Content Include="Content\Backoffice\slicknav.min.css" />
     <Content Include="Content\Backoffice\styles.css" />
     <Content Include="Content\Backoffice\themify-icons.css" />
+    <Content Include="Content\Backoffice\toastr.min.css" />
     <Content Include="Content\Backoffice\typography.css" />
     <Content Include="Content\BoardImages\author\author-img1.jpg" />
     <Content Include="Content\BoardImages\author\author-img2.jpg" />
@@ -324,6 +326,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Backoffice\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -376,6 +379,12 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VillaMouzinho.Business\VillaMouzinho.Business.csproj">
+      <Project>{BEC057BF-3A6B-41A2-98BA-42EF30DF3E47}</Project>
+      <Name>VillaMouzinho.Business</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

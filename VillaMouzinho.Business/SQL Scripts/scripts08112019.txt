@@ -9,3 +9,12 @@ CREATE TABLE `villa_mouzinho`.`attributes_values` (
   `VALUE` VARCHAR(250) NOT NULL,
   `DESCRIPTION` VARCHAR(500) NULL,
   PRIMARY KEY (`ID`));
+
+ALTER TABLE `villa_mouzinho`.`attributes_values` 
+ADD INDEX `FK_ATTRIBUTE_VALUE_idx` (`ATTRIBUTE_ID` ASC);
+ALTER TABLE `villa_mouzinho`.`attributes_values` 
+ADD CONSTRAINT `FK_ATTRIBUTE_VALUE`
+  FOREIGN KEY (`ATTRIBUTE_ID`)
+  REFERENCES `villa_mouzinho`.`attributes` (`ID`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="dbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="dbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__migrationhistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -14,6 +14,16 @@
           <Property Name="ContextKey" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="Model" Type="longblob" Nullable="false" />
           <Property Name="ProductVersion" Type="varchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="app_countries">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="COD_ALPHA2" Type="varchar" MaxLength="5" />
+          <Property Name="COD_ALPHA3" Type="varchar" MaxLength="5" />
+          <Property Name="ACTIVE" Type="bit" />
         </EntityType>
         <EntityType Name="aspnetroles">
           <Key>
@@ -96,8 +106,21 @@ warning 6002: The table/view 'def.villa_mouzinho.aspnetuserlogins' does not have
           <Property Name="VALUE" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="DESCRIPTION" Type="varchar" MaxLength="500" />
         </EntityType>
+        <Association Name="FK_ATTRIBUTE_VALUE">
+          <End Role="attributes" Type="Self.attributes" Multiplicity="1" />
+          <End Role="attributes_values" Type="Self.attributes_values" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attributes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="attributes_values">
+              <PropertyRef Name="ATTRIBUTE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="dbModelStoreContainer">
           <EntitySet Name="__migrationhistory" EntityType="Self.__migrationhistory" Schema="villa_mouzinho" store:Type="Tables" />
+          <EntitySet Name="app_countries" EntityType="Self.app_countries" Schema="villa_mouzinho" store:Type="Tables" />
           <EntitySet Name="aspnetroles" EntityType="Self.aspnetroles" Schema="villa_mouzinho" store:Type="Tables" />
           <EntitySet Name="aspnetuser_recover_password_token" EntityType="Self.aspnetuser_recover_password_token" Schema="villa_mouzinho" Table="aspnetuser.recover_password_token" store:Type="Tables" />
           <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaims" Schema="villa_mouzinho" store:Type="Tables" />
@@ -112,8 +135,13 @@ warning 6002: The table/view 'def.villa_mouzinho.aspnetuserlogins' does not have
 `aspnetuserlogins`.`UserId`
 FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_ATTRIBUTE_VALUE" Association="Self.FK_ATTRIBUTE_VALUE">
+            <End Role="attributes" EntitySet="attributes" />
+            <End Role="attributes_values" EntitySet="attributes_values" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -126,6 +154,16 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
           <Property Name="ContextKey" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="app_countries">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="COD_ALPHA2" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="COD_ALPHA3" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="ACTIVE" Type="Boolean" />
         </EntityType>
         <EntityType Name="aspnetroles">
           <Key>
@@ -180,6 +218,24 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
           <Property Name="ImageUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="ImageBlob" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="attributes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="attributes_values" Relationship="Self.FK_ATTRIBUTE_VALUE" FromRole="attributes" ToRole="attributes_values" />
+        </EntityType>
+        <EntityType Name="attributes_values">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ATTRIBUTE_ID" Type="Int32" Nullable="false" />
+          <Property Name="VALUE" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="attributes" Relationship="Self.FK_ATTRIBUTE_VALUE" FromRole="attributes_values" ToRole="attributes" />
+        </EntityType>
         <EntityType Name="aspnetuserlogins">
           <Key>
             <PropertyRef Name="LoginProvider" />
@@ -190,33 +246,34 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
           <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
+        <Association Name="FK_ATTRIBUTE_VALUE">
+          <End Role="attributes" Type="Self.attributes" Multiplicity="1" />
+          <End Role="attributes_values" Type="Self.attributes_values" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attributes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="attributes_values">
+              <PropertyRef Name="ATTRIBUTE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__migrationhistory" EntityType="Self.C__migrationhistory" />
+          <EntitySet Name="app_countries" EntityType="Self.app_countries" />
           <EntitySet Name="aspnetroles" EntityType="Self.aspnetroles" />
           <EntitySet Name="aspnetuser_recover_password_token" EntityType="Self.aspnetuser_recover_password_token" />
           <EntitySet Name="aspnetuserclaims" EntityType="Self.aspnetuserclaims" />
           <EntitySet Name="aspnetuserroles" EntityType="Self.aspnetuserroles" />
           <EntitySet Name="aspnetusers" EntityType="Self.aspnetusers" />
+          <EntitySet Name="attributes" EntityType="Self.attributes" />
+          <EntitySet Name="attributes_values" EntityType="Self.attributes_values" />
           <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogins" />
-          <EntitySet Name="attributes" EntityType="dbModel.attributes" />
-          <EntitySet Name="attributes_values" EntityType="dbModel.attributes_values" />
+          <AssociationSet Name="FK_ATTRIBUTE_VALUE" Association="Self.FK_ATTRIBUTE_VALUE">
+            <End Role="attributes" EntitySet="attributes" />
+            <End Role="attributes_values" EntitySet="attributes_values" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="attributes">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NAME" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="attributes_values">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ATTRIBUTE_ID" Type="Int32" Nullable="false" />
-          <Property Name="VALUE" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="DESCRIPTION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -230,6 +287,17 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="app_countries">
+            <EntityTypeMapping TypeName="dbModel.app_countries">
+              <MappingFragment StoreEntitySet="app_countries">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="COD_ALPHA2" ColumnName="COD_ALPHA2" />
+                <ScalarProperty Name="COD_ALPHA3" ColumnName="COD_ALPHA3" />
+                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -290,30 +358,30 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="aspnetuserlogins">
-            <EntityTypeMapping TypeName="dbModel.aspnetuserlogins">
-              <MappingFragment StoreEntitySet="aspnetuserlogins">
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="attributes">
             <EntityTypeMapping TypeName="dbModel.attributes">
               <MappingFragment StoreEntitySet="attributes">
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="attributes_values">
             <EntityTypeMapping TypeName="dbModel.attributes_values">
               <MappingFragment StoreEntitySet="attributes_values">
-                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
-                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
-                <ScalarProperty Name="ATTRIBUTE_ID" ColumnName="ATTRIBUTE_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ATTRIBUTE_ID" ColumnName="ATTRIBUTE_ID" />
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnetuserlogins">
+            <EntityTypeMapping TypeName="dbModel.aspnetuserlogins">
+              <MappingFragment StoreEntitySet="aspnetuserlogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
