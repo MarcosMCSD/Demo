@@ -19,10 +19,17 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label class="col-form-label">Imagem</label>
-                        <input type="file" class="form-control" name="content-module-file-@ViewBag.RefModule"/>
+                        <input type="file" class="form-control file" name="content-module-file-@ViewBag.RefModule" id="file-@ViewBag.RefModule" />
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="card-footer text-right" style="background-color: #303641">
+            <ul class="list-inline" style="color:white;">
+                <li class="list-inline-item"><button class="btn btn-danger btn-sm" type="button" onclick="$(this).parent().parent().parent().parent().parent().remove();">Remover módulo</button></li>
+                <li class="list-inline-item"><span class="ti-arrow-circle-down" style="font-size:1.5rem; vertical-align:middle;color:white;"></span></li>
+                <li class="list-inline-item"><span class="ti-arrow-circle-up" style="font-size:1.5rem; vertical-align:middle;color:white;"></span></li>
+            </ul>
         </div>
     </div>
 </div>
@@ -38,5 +45,23 @@
             toolbar: toolbarOptions
         },
         theme: 'snow'
+    });
+
+    $('#file-@ViewBag.RefModule').change(function () {
+        var input = this;
+        var ext = input.files[0].name.substring(input.files[0].name.lastIndexOf('.') + 1).toLowerCase();
+        if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#file-@ViewBag.RefModule').attr('blob', e.target.result);
+                $('#file-@ViewBag.RefModule').attr('imageName', input.files[0].name);
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            $('#file-@ViewBag.RefModule').val('');
+            $('#file-@ViewBag.RefModule').attr('blob', '');
+            $('#file-@ViewBag.RefModule').attr('imageName', '');
+            toastr.error('Adicione apenas ficheiros do tipo imagem');
+        }
     });
 </script>

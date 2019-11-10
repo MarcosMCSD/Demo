@@ -33,6 +33,9 @@ namespace VillaMouzinho.Business.DB
         public DbSet<aspnetusers> aspnetusers { get; set; }
         public DbSet<attributes> attributes { get; set; }
         public DbSet<attributes_values> attributes_values { get; set; }
+        public DbSet<cms_page_header> cms_page_header { get; set; }
+        public DbSet<cms_page_module_content> cms_page_module_content { get; set; }
+        public DbSet<cms_page_module_mapping> cms_page_module_mapping { get; set; }
         public DbSet<aspnetuserlogins> aspnetuserlogins { get; set; }
     }
 }

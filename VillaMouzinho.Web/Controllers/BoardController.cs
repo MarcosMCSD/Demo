@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using VillaMouzinho.Business.DB;
 using VillaMouzinho.Web.Controllers.Core;
 using VillaMouzinho.Web.Models;
+using VillaMouzinho.Web.Models.Board.CMS;
 
 namespace VillaMouzinho.Web.Controllers
 {
@@ -151,6 +152,79 @@ namespace VillaMouzinho.Web.Controllers
             BuildFastBreadCrumb(FullBreadcrumb, 1);
 
             return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult CreatePage(CreatePageModel model)
+        {
+            var page = new cms_page_header();
+            page.ID = !string.IsNullOrEmpty(model.pageHeader.id) ? model.pageHeader.id : Guid.NewGuid().ToString();
+            page.TITLE = model.pageHeader.title;
+            page.STATUS = model.pageHeader.status;
+            page.TYPE = model.pageHeader.type;            
+            page.ACTIVE = true;
+            page.CREATION_DATE = DateTime.Now;
+            if (!string.IsNullOrEmpty(model.pageHeader.location))
+            {
+                var parent = db.cms_page_header.Where(x => x.URL == "/pt" + model.pageHeader.location).FirstOrDefault();
+                page.PARENT_ID = parent.ID;
+                page.PARENT_PATH = parent.PARENT_PATH + "|" + parent.ID;
+                page.URL = "/pt" + parent.URL + "/" + model.pageHeader.url;
+            }
+            else
+            {
+                page.URL = "/pt" + model.pageHeader.url;
+            }
+
+            // Check unique URL
+            var uniqueUrl = db.cms_page_header.Where(x => x.URL == page.URL).FirstOrDefault();
+            if (uniqueUrl != null && string.IsNullOrEmpty(model.pageHeader.id))
+            {
+                return Json(new { result = "error-url" }, JsonRequestBehavior.AllowGet);
+            }
+
+            db.cms_page_header.Add(page);
+            db.SaveChanges();
+
+            var thisPage = db.cms_page_header.OrderByDescending(x => x.IID).FirstOrDefault();
+
+            if (model.modules != null && model.modules.Any())
+            {
+                var counter = 0;
+                foreach (var item in model.modules)
+                {
+                    counter++;
+                    if (item.type == "content-module")
+                    {
+                        var contentModule = new cms_page_module_content();
+                        contentModule.TITLE = item.title;
+                        contentModule.DESCRIPTION = item.description;
+                        if (!string.IsNullOrEmpty(item.image))
+                        {
+                            contentModule.IMAGE_NAME = item.imageName;
+                            contentModule.IMAGE = Convert.FromBase64String(item.image.Split(',')[1]);
+                            contentModule.EXTENSION = "." + item.image.Split('/')[1].Split(';')[0];
+                        }
+
+                        db.cms_page_module_content.Add(contentModule);
+                        db.SaveChanges();
+
+                        var thisContentModuleId = db.cms_page_module_content.OrderByDescending(x => x.ID).FirstOrDefault().ID;
+
+                        var contentModuleMapping = new cms_page_module_mapping();
+                        contentModuleMapping.PAGE_HEADER_ID = thisPage.ID;
+                        contentModuleMapping.PAGE_HEADER_IID = thisPage.IID;
+                        contentModuleMapping.TYPE = item.type;
+                        contentModuleMapping.MODULE_ID = thisContentModuleId;
+                        contentModuleMapping.ORDER = counter;
+                        db.cms_page_module_mapping.Add(contentModuleMapping);
+                        db.SaveChanges();
+                    }
+                }
+            }
+
+            return Json(new { result = "ok" }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

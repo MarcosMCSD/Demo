@@ -88,7 +88,7 @@
                                     <h4 class="header-title" style="text-transform:none;">Para adicionar conteúdos escolha nos módulos disponíveis</h4>
                                 </div>
                                 <div class="col-12 col-md-3 text-right">
-                                    <button type="submit" class="btn btn-primary">Criar página</button>
+                                    <button type="submit" id="submitPage" class="btn btn-primary">Criar página</button>
                                 </div>
                             </div>
                         </div>
@@ -127,10 +127,13 @@
 
             var contentModules = $('.content-module');
             for (var i = 0; i < contentModules.length; i++) {
+                var file = $(contentModules[i]).find('.file');
                 var module = {
+                    type: 'content-module',
                     title: $(contentModules[i]).find('.title').val(),
                     description: $(contentModules[i]).find('.ql-editor').html(),
-                    image: ''
+                    image: file.attr('blob'),
+                    imageName: file.attr('imageName')
                 };
 
                 if (module.description == "<p><br></p>") {
@@ -147,7 +150,15 @@
                 request.modules.push(module);
             }
 
-            console.log(request);
+            $('#submitPage').attr('disabled', 'disabled');
+            $.post('/Board/CreatePage', { model: request }, function (response) {
+                if (response.result == 'ok') {
+                    toastr.success('Página criada com sucesso');
+                } else if (response.result == 'error-url') {
+                    toastr.error('Já existe uma página na mesma localização com o mesmo nome.');
+                }
+            });
+
             return false;
             //form.submit();
         }
