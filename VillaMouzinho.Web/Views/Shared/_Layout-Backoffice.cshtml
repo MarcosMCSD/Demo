@@ -373,7 +373,7 @@
                                         if (i < ViewBag.FullBreadcrumb.Count - 1)
                                         {
                                             <li>
-                                                <a href="@(ViewBag.FullBreadcrumb[i].Split('|')[1] == "#" ? "#" : ViewBag.ApplicationBaseUrl + ViewBag.FullBreadcrumb[i].Split('|')[1])">@Html.Raw(ViewBag.FullBreadcrumb[i].Split('|')[0])</a>
+                                                <a href="/@(ViewBag.FullBreadcrumb[i].Split('|')[1] == "#" ? "#" : ViewBag.ApplicationBaseUrl + ViewBag.FullBreadcrumb[i].Split('|')[1])">@Html.Raw(ViewBag.FullBreadcrumb[i].Split('|')[0])</a>
                                             </li>
                                         }
                                         else
