@@ -6,18 +6,23 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using VillaMouzinho.Business.DB;
+using VillaMouzinho.Web.Controllers.Core;
 using VillaMouzinho.Web.Models;
 
 namespace VillaMouzinho.Web.Controllers
 {
     [Authorize]
-    public class BoardController : Controller
+    public class BoardController : CoreController
     {
         private dbEntities db = new dbEntities();
 
         [HttpGet]
         public ActionResult Index()
         {
+            FullBreadcrumb.Add("Home|Board/Index");
+            FullBreadcrumb.Add("Dashboard|Board/Index");
+            BuildFastBreadCrumb(FullBreadcrumb, 1);
+
             ViewBag.Title = "Dashboard";
             return View();
         }
@@ -29,6 +34,10 @@ namespace VillaMouzinho.Web.Controllers
         [HttpGet]
         public ActionResult Attributes()
         {
+            FullBreadcrumb.Add("Home|Board/Index");
+            FullBreadcrumb.Add("Atributos|Board/Attributes");
+            BuildFastBreadCrumb(FullBreadcrumb, 1);
+
             ViewBag.Title = "Atributos";
             var model = new AttributesModel();
             model.Attributes = db.attributes.ToList();
@@ -39,6 +48,11 @@ namespace VillaMouzinho.Web.Controllers
         [HttpGet]
         public ActionResult CreateAttribute()
         {
+            FullBreadcrumb.Add("Home|Board/Index");
+            FullBreadcrumb.Add("Atributos|Board/Attributes");
+            FullBreadcrumb.Add("Criar atributo|Board/CreateAttribute");
+            BuildFastBreadCrumb(FullBreadcrumb, 1);
+
             ViewBag.Title = "Criar atributo";
             return View();
         }
@@ -80,6 +94,11 @@ namespace VillaMouzinho.Web.Controllers
 
             var model = new AttributesModel();
             model.Attribute = db.attributes.FirstOrDefault(x => x.ID == id);
+
+            FullBreadcrumb.Add("Home|Board/Index");
+            FullBreadcrumb.Add("Atributos|Board/Attributes");
+            FullBreadcrumb.Add("Editar atributo " + model.Attribute.NAME + "|Board/UpdateAttribute/" + id);
+            BuildFastBreadCrumb(FullBreadcrumb, 1);
 
             return View(model);
         }
@@ -125,6 +144,12 @@ namespace VillaMouzinho.Web.Controllers
         public ActionResult CreatePage()
         {
             ViewBag.Title = "Criar página";
+
+            FullBreadcrumb.Add("Home|Board/Index");
+            FullBreadcrumb.Add("Conteúdos|#");
+            FullBreadcrumb.Add("Criar Página|Board/CreatePage");
+            BuildFastBreadCrumb(FullBreadcrumb, 1);
+
             return View();
         }
 
