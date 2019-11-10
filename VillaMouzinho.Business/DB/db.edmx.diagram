@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5f3de0d2399f45d0824f8e6462e89f7a" Name="Diagram1">
+      <Diagram DiagramId="e56fd2e0fb2e44c9af430649417bbeba" Name="Diagram1">
         <EntityTypeShape EntityType="dbModel.C__migrationhistory" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbModel.aspnetroles" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbModel.aspnetuser_recover_password_token" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
@@ -15,8 +15,12 @@
         <EntityTypeShape EntityType="dbModel.attributes_values" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="dbModel.cms_page_header" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbModel.cms_page_module_content" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbModel.cms_page_module_mapping" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbModel.aspnetuserlogins" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.cms_page_module_gallery" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.cms_page_module_gallery_items" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.cms_page_module_mapping" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.cms_page_module_room" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.cms_page_module_room_attributes" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.aspnetuserlogins" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="dbModel.FK_ATTRIBUTE_VALUE" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

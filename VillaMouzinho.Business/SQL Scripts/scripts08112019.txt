@@ -57,3 +57,47 @@ ADD COLUMN `EXTENSION` VARCHAR(45) NULL AFTER `IMAGE`;
 
 ALTER TABLE `villa_mouzinho`.`cms_page_module_content` 
 ADD COLUMN `IMAGE_NAME` VARCHAR(250) NULL AFTER `EXTENSION`;
+
+/////////////////////////////////////////////////////////////////////
+CREATE TABLE `cms_page_module_room` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `TITLE` varchar(500) NOT NULL,
+  `DESCRIPTION` varchar(5000) NOT NULL,
+  `IMAGE` blob,
+  `EXTENSION` varchar(45) DEFAULT NULL,
+  `IMAGE_NAME` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `villa_mouzinho`.`new_table` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `ROOM_ID` INT NOT NULL,
+  `ATTRIBUTE_ID` INT NOT NULL,
+  `ATTRIBUTE_VALUE_ID` INT NOT NULL,
+  PRIMARY KEY (`ID`));
+
+  ALTER TABLE `villa_mouzinho`.`new_table` 
+RENAME TO  `villa_mouzinho`.`cms_page_module_room_attributes` ;
+
+CREATE TABLE `villa_mouzinho`.`cms_page_module_gallery` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `CREATION_DATE` DATETIME NOT NULL,
+  PRIMARY KEY (`ID`));
+
+  CREATE TABLE `villa_mouzinho`.`cms_page_module_gallery_items` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `GALLERY_ID` INT NOT NULL,
+  `IMAGE` BLOB NOT NULL,
+  `EXTENSON` VARCHAR(45) NOT NULL,
+  `IMAGE_NAME` VARCHAR(250) NOT NULL,
+  PRIMARY KEY (`ID`));
+
+  ALTER TABLE `villa_mouzinho`.`cms_page_module_gallery_items` 
+CHANGE COLUMN `IMAGE_NAME` `IMAGE_NAME` VARCHAR(500) NOT NULL ;
+
+ALTER TABLE `villa_mouzinho`.`cms_page_module_room` 
+ADD COLUMN `HIGH_PRICE_` DECIMAL(10,2) NULL AFTER `IMAGE_NAME`,
+ADD COLUMN `LOWER_PRICE` DECIMAL(10,2) NULL AFTER `HIGH_PRICE_`;
+
+ALTER TABLE `villa_mouzinho`.`cms_page_module_room` 
+CHANGE COLUMN `HIGH_PRICE_` `HIGHER_PRICE` DECIMAL(10,2) NULL DEFAULT NULL ;

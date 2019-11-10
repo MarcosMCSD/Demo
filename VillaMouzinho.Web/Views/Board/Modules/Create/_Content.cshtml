@@ -1,4 +1,4 @@
-﻿<div class="col-12 content-module" style="margin-bottom:2rem;" id="content-module-@ViewBag.RefModule">
+﻿<div class="col-12 content-module module" style="margin-bottom:2rem;" id="content-module-@ViewBag.RefModule">
     <div class="card">
         <div class="card-body">
             <h4 class="header-title" style="text-transform:inherit !important;">Módulo conteúdo livre</h4>
@@ -50,6 +50,18 @@
     $('#file-@ViewBag.RefModule').change(function () {
         var input = this;
         var ext = input.files[0].name.substring(input.files[0].name.lastIndexOf('.') + 1).toLowerCase();
+
+        const fsize = input.files.item(0).size;
+        const file = Math.round((fsize / 1024));
+
+        if (file >= 2500) {
+            $('#file-@ViewBag.RefModule').val('');
+            $('#file-@ViewBag.RefModule').attr('blob', '');
+            $('#file-@ViewBag.RefModule').attr('imageName', '');
+            toastr.error('A imagem que adicionou é muito grande, por favor seleccione uma imagem com tamanho menor 20MB.');
+            return false;
+        }
+
         if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
             var reader = new FileReader();
             reader.onload = function (e) {

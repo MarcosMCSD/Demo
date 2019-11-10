@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="dbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="dbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__migrationhistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -122,6 +122,23 @@ warning 6002: The table/view 'def.villa_mouzinho.aspnetuserlogins' does not have
           <Property Name="EXTENSION" Type="varchar" MaxLength="45" />
           <Property Name="IMAGE_NAME" Type="varchar" MaxLength="250" />
         </EntityType>
+        <EntityType Name="cms_page_module_gallery">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CREATION_DATE" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cms_page_module_gallery_items">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GALLERY_ID" Type="int" Nullable="false" />
+          <Property Name="IMAGE" Type="blob" Nullable="false" />
+          <Property Name="EXTENSON" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="IMAGE_NAME" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
         <EntityType Name="cms_page_module_mapping">
           <Key>
             <PropertyRef Name="ID" />
@@ -132,6 +149,28 @@ warning 6002: The table/view 'def.villa_mouzinho.aspnetuserlogins' does not have
           <Property Name="TYPE" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="MODULE_ID" Type="int" Nullable="false" />
           <Property Name="ORDER" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cms_page_module_room">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TITLE" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="varchar" MaxLength="5000" Nullable="false" />
+          <Property Name="IMAGE" Type="blob" />
+          <Property Name="EXTENSION" Type="varchar" MaxLength="45" />
+          <Property Name="IMAGE_NAME" Type="varchar" MaxLength="250" />
+          <Property Name="HIGHER_PRICE" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="LOWER_PRICE" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="cms_page_module_room_attributes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ROOM_ID" Type="int" Nullable="false" />
+          <Property Name="ATTRIBUTE_ID" Type="int" Nullable="false" />
+          <Property Name="ATTRIBUTE_VALUE_ID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_ATTRIBUTE_VALUE">
           <End Role="attributes" Type="Self.attributes" Multiplicity="1" />
@@ -156,7 +195,11 @@ warning 6002: The table/view 'def.villa_mouzinho.aspnetuserlogins' does not have
           <EntitySet Name="attributes_values" EntityType="Self.attributes_values" Schema="villa_mouzinho" store:Type="Tables" />
           <EntitySet Name="cms_page_header" EntityType="Self.cms_page_header" Schema="villa_mouzinho" store:Type="Tables" />
           <EntitySet Name="cms_page_module_content" EntityType="Self.cms_page_module_content" Schema="villa_mouzinho" store:Type="Tables" />
+          <EntitySet Name="cms_page_module_gallery" EntityType="Self.cms_page_module_gallery" Schema="villa_mouzinho" store:Type="Tables" />
+          <EntitySet Name="cms_page_module_gallery_items" EntityType="Self.cms_page_module_gallery_items" Schema="villa_mouzinho" store:Type="Tables" />
           <EntitySet Name="cms_page_module_mapping" EntityType="Self.cms_page_module_mapping" Schema="villa_mouzinho" store:Type="Tables" />
+          <EntitySet Name="cms_page_module_room" EntityType="Self.cms_page_module_room" Schema="villa_mouzinho" store:Type="Tables" />
+          <EntitySet Name="cms_page_module_room_attributes" EntityType="Self.cms_page_module_room_attributes" Schema="villa_mouzinho" store:Type="Tables" />
           <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogins" store:Type="Tables" store:Schema="villa_mouzinho">
             <DefiningQuery>SELECT
 `aspnetuserlogins`.`LoginProvider`, 
@@ -169,7 +212,8 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
             <End Role="attributes_values" EntitySet="attributes_values" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -280,6 +324,23 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
           <Property Name="EXTENSION" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="IMAGE_NAME" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="cms_page_module_gallery">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CREATION_DATE" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cms_page_module_gallery_items">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GALLERY_ID" Type="Int32" Nullable="false" />
+          <Property Name="IMAGE" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="EXTENSON" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IMAGE_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
         <EntityType Name="cms_page_module_mapping">
           <Key>
             <PropertyRef Name="ID" />
@@ -290,6 +351,28 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
           <Property Name="TYPE" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MODULE_ID" Type="Int32" Nullable="false" />
           <Property Name="ORDER" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cms_page_module_room">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TITLE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IMAGE" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="EXTENSION" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="IMAGE_NAME" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="HIGHER_PRICE" Type="Decimal" />
+          <Property Name="LOWER_PRICE" Type="Decimal" />
+        </EntityType>
+        <EntityType Name="cms_page_module_room_attributes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ROOM_ID" Type="Int32" Nullable="false" />
+          <Property Name="ATTRIBUTE_ID" Type="Int32" Nullable="false" />
+          <Property Name="ATTRIBUTE_VALUE_ID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="aspnetuserlogins">
           <Key>
@@ -324,7 +407,11 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
           <EntitySet Name="attributes_values" EntityType="Self.attributes_values" />
           <EntitySet Name="cms_page_header" EntityType="Self.cms_page_header" />
           <EntitySet Name="cms_page_module_content" EntityType="Self.cms_page_module_content" />
+          <EntitySet Name="cms_page_module_gallery" EntityType="Self.cms_page_module_gallery" />
+          <EntitySet Name="cms_page_module_gallery_items" EntityType="Self.cms_page_module_gallery_items" />
           <EntitySet Name="cms_page_module_mapping" EntityType="Self.cms_page_module_mapping" />
+          <EntitySet Name="cms_page_module_room" EntityType="Self.cms_page_module_room" />
+          <EntitySet Name="cms_page_module_room_attributes" EntityType="Self.cms_page_module_room_attributes" />
           <EntitySet Name="aspnetuserlogins" EntityType="Self.aspnetuserlogins" />
           <AssociationSet Name="FK_ATTRIBUTE_VALUE" Association="Self.FK_ATTRIBUTE_VALUE">
             <End Role="attributes" EntitySet="attributes" />
@@ -441,12 +528,31 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
           <EntitySetMapping Name="cms_page_module_content">
             <EntityTypeMapping TypeName="dbModel.cms_page_module_content">
               <MappingFragment StoreEntitySet="cms_page_module_content">
-                <ScalarProperty Name="IMAGE_NAME" ColumnName="IMAGE_NAME" />
-                <ScalarProperty Name="EXTENSION" ColumnName="EXTENSION" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TITLE" ColumnName="TITLE" />
                 <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
                 <ScalarProperty Name="IMAGE" ColumnName="IMAGE" />
+                <ScalarProperty Name="EXTENSION" ColumnName="EXTENSION" />
+                <ScalarProperty Name="IMAGE_NAME" ColumnName="IMAGE_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cms_page_module_gallery">
+            <EntityTypeMapping TypeName="dbModel.cms_page_module_gallery">
+              <MappingFragment StoreEntitySet="cms_page_module_gallery">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CREATION_DATE" ColumnName="CREATION_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cms_page_module_gallery_items">
+            <EntityTypeMapping TypeName="dbModel.cms_page_module_gallery_items">
+              <MappingFragment StoreEntitySet="cms_page_module_gallery_items">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GALLERY_ID" ColumnName="GALLERY_ID" />
+                <ScalarProperty Name="IMAGE" ColumnName="IMAGE" />
+                <ScalarProperty Name="EXTENSON" ColumnName="EXTENSON" />
+                <ScalarProperty Name="IMAGE_NAME" ColumnName="IMAGE_NAME" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -459,6 +565,30 @@ FROM `aspnetuserlogins` AS `aspnetuserlogins`</DefiningQuery>
                 <ScalarProperty Name="TYPE" ColumnName="TYPE" />
                 <ScalarProperty Name="MODULE_ID" ColumnName="MODULE_ID" />
                 <ScalarProperty Name="ORDER" ColumnName="ORDER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cms_page_module_room">
+            <EntityTypeMapping TypeName="dbModel.cms_page_module_room">
+              <MappingFragment StoreEntitySet="cms_page_module_room">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="IMAGE" ColumnName="IMAGE" />
+                <ScalarProperty Name="EXTENSION" ColumnName="EXTENSION" />
+                <ScalarProperty Name="IMAGE_NAME" ColumnName="IMAGE_NAME" />
+                <ScalarProperty Name="HIGHER_PRICE" ColumnName="HIGHER_PRICE" />
+                <ScalarProperty Name="LOWER_PRICE" ColumnName="LOWER_PRICE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cms_page_module_room_attributes">
+            <EntityTypeMapping TypeName="dbModel.cms_page_module_room_attributes">
+              <MappingFragment StoreEntitySet="cms_page_module_room_attributes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ROOM_ID" ColumnName="ROOM_ID" />
+                <ScalarProperty Name="ATTRIBUTE_ID" ColumnName="ATTRIBUTE_ID" />
+                <ScalarProperty Name="ATTRIBUTE_VALUE_ID" ColumnName="ATTRIBUTE_VALUE_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

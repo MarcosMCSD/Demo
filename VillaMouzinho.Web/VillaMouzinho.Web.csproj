@@ -402,7 +402,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Backoffice\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -445,6 +447,8 @@
     <Content Include="Views\Board\CreatePage.cshtml" />
     <Content Include="Views\Board\Modules\Create\_Content.cshtml" />
     <Content Include="Views\Shared\_Layout-Frontend.cshtml" />
+    <Content Include="Views\Board\Modules\Create\_Room.cshtml" />
+    <Content Include="Views\Board\Modules\Create\_Gallery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

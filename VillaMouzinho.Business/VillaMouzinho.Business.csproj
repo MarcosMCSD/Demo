@@ -81,7 +81,19 @@
     <Compile Include="DB\cms_page_module_content.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\cms_page_module_gallery.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\cms_page_module_gallery_items.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\cms_page_module_mapping.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\cms_page_module_room.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\cms_page_module_room_attributes.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\C__migrationhistory.cs">

@@ -1,0 +1,140 @@
+﻿@model VillaMouzinho.Web.Models.AttributesModel
+<div class="col-12 room-module module" style="margin-bottom:2rem;" id="room-module-@ViewBag.RefModule">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="header-title" style="text-transform:inherit !important;">Módulo quarto</h4>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="example-text-input" class="col-form-label">Título&nbsp;<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control required title" name="room-module-title-@ViewBag.RefModule" />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group m-b-d">
+                        <label>Conteúdo&nbsp;<span class="text-danger">*</span></label>
+                        <div id="toolbar"></div>
+                        <div class="editor" id="edit-@ViewBag.RefModule"></div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="col-form-label">Imagem principal</label>
+                        <input type="file" class="form-control file" name="room-module-file-@ViewBag.RefModule" id="file-@ViewBag.RefModule" />
+                    </div>
+                </div>
+
+            </div>
+            <h4 class="header-title" style="text-transform:inherit !important; margin-top:1.5rem;">Preços</h4>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label class="text-success w-100">Época baixa / dia</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control number higher-price number majorthanzero" aria-label="Recipient's username" aria-describedby="basic-addon2" onchange="$(this).val($(this).val().replace(',','.'))">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label class="text-danger w-100">Época baixa / dia</label>
+                        <div class="input-group mb-3">                            
+                            <input type="text" class="form-control number lower-price number majorthanzero" aria-label="Recipient's username" aria-describedby="basic-addon2" onchange="$(this).val($(this).val().replace(',','.'))">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h4 class="header-title" style="text-transform:inherit !important; margin-top:1.5rem;">Características</h4>
+            <p class="text-muted font-14 mb-4">Adicione atributos ao quarto</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Atributo</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Attributes != null && Model.Attributes.Any())
+                    {
+                        foreach (var item in Model.Attributes)
+                        {
+                            if (item.attributes_values != null && item.attributes_values.Any())
+                            {
+                                <tr>
+                                    <td><input type="text" class="form-control attribute" data-attribute-id="@item.ID" readonly value="@item.NAME" /></td>
+                                    <td>
+                                        <select class="form-control attribute-value">
+                                            <option value="null" selected disabled>Seleccione opção</option>
+                                            @foreach (var value in item.attributes_values)
+                                            {
+                                                <option value="@value.ID">@value.VALUE</option>
+                                            }
+                                        </select>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-right" style="background-color: #303641">
+            <ul class="list-inline" style="color:white;">
+                <li class="list-inline-item"><button class="btn btn-danger btn-sm" type="button" onclick="$(this).parent().parent().parent().parent().parent().remove();$('#add-room-module-btn').removeClass('ds-none')">Remover módulo</button></li>
+                <li class="list-inline-item"><span class="ti-arrow-circle-down" style="font-size:1.5rem; vertical-align:middle;color:white;"></span></li>
+                <li class="list-inline-item"><span class="ti-arrow-circle-up" style="font-size:1.5rem; vertical-align:middle;color:white;"></span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .ql-editor {
+        height: 17rem;
+    }
+</style>
+<script>
+    var quill = new Quill('#edit-@ViewBag.RefModule', {
+        modules: {
+            toolbar: toolbarOptions
+        },
+        theme: 'snow'
+    });
+
+    $('#file-@ViewBag.RefModule').change(function () {
+        var input = this;
+        var ext = input.files[0].name.substring(input.files[0].name.lastIndexOf('.') + 1).toLowerCase();
+
+        const fsize = input.files.item(0).size;
+        const file = Math.round((fsize / 1024));
+
+        if (file >= 2500) {
+            $('#file-@ViewBag.RefModule').val('');
+            $('#file-@ViewBag.RefModule').attr('blob', '');
+            $('#file-@ViewBag.RefModule').attr('imageName', '');
+            toastr.error('A imagem que adicionou é muito grande, por favor seleccione uma imagem com tamanho menor 20MB.');
+            return false;
+        }
+
+        if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#file-@ViewBag.RefModule').attr('blob', e.target.result);
+                $('#file-@ViewBag.RefModule').attr('imageName', input.files[0].name);
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            $('#file-@ViewBag.RefModule').val('');
+            $('#file-@ViewBag.RefModule').attr('blob', '');
+            $('#file-@ViewBag.RefModule').attr('imageName', '');
+            toastr.error('Adicione apenas ficheiros do tipo imagem');
+        }
+    });
+</script>

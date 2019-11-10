@@ -35,7 +35,11 @@ namespace VillaMouzinho.Business.DB
         public DbSet<attributes_values> attributes_values { get; set; }
         public DbSet<cms_page_header> cms_page_header { get; set; }
         public DbSet<cms_page_module_content> cms_page_module_content { get; set; }
+        public DbSet<cms_page_module_gallery> cms_page_module_gallery { get; set; }
+        public DbSet<cms_page_module_gallery_items> cms_page_module_gallery_items { get; set; }
         public DbSet<cms_page_module_mapping> cms_page_module_mapping { get; set; }
+        public DbSet<cms_page_module_room> cms_page_module_room { get; set; }
+        public DbSet<cms_page_module_room_attributes> cms_page_module_room_attributes { get; set; }
         public DbSet<aspnetuserlogins> aspnetuserlogins { get; set; }
     }
 }

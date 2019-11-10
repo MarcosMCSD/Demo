@@ -28,10 +28,31 @@ namespace VillaMouzinho.Web.Models.Board.CMS
 
     public class ModuleDto
     {
+        public ModuleDto()
+        {
+            attributes = new List<SelectedAttributoDto>();
+            images = new List<ImageDto>();
+        }
         public string type { get; set; }
         public string title { get; set; }
         public string description { get; set; }
         public string image { get; set; }
         public string imageName { get; set; }
+        public List<SelectedAttributoDto> attributes { get; set; }
+        public List<ImageDto> images { get; set; }
+        public string higherPrice { get; set; }
+        public string lowerPrice { get; set; }
+    }
+
+    public class SelectedAttributoDto
+    {
+        public int id { get; set; }
+        public int valueId { get; set; }
+    }
+
+    public class ImageDto
+    {
+        public string image { get; set; }
+        public string name { get; set; }
     }
 }

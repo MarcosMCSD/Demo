@@ -53,11 +53,11 @@
                                 <input type="text" class="form-control required" name="page-header-title" id="page-header-title" />
                             </div>
                             <div class="form-group">
-                                <label for="example-text-input" class="col-form-label">URL Friendly&nbsp;<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control required" name="page-header-url" id="page-header-url" readonly />
+                                <label for="example-text-input" class="col-form-label">URL Friendly</label>
+                                <input type="text" class="form-control" name="page-header-url" id="page-header-url" readonly />
                             </div>
                             <div class="form-group">
-                                <label for="example-text-input" class="col-form-label">Localização&nbsp;<span class="text-danger">*</span></label>
+                                <label for="example-text-input" class="col-form-label">Localização</label>
                                 <input type="text" class="form-control" readonly name="page-header-location" id="page-header-location" />
                             </div>
                         </div>
@@ -68,8 +68,11 @@
                             <div class="alert alert-primary" style="cursor:pointer;" role="alert" onclick="addModule(1)">
                                 <h5><i class="fa fa-align-justify" style="vertical-align:middle;"></i>&nbsp;&nbsp;<small>Adicionar módulo conteúdo livre</small></h5>
                             </div>
-                            <div class="alert alert-primary" style="cursor:pointer;" role="alert" onclick="addModule(2)">
-                                <h5><i class="fa fa-bed" style="vertical-align:middle;"></i>&nbsp;&nbsp;<small>Adicionar módulo quarto</small></h5>
+                            <div class="alert alert-primary" style="cursor:pointer;" id="add-room-module-btn" role="alert" onclick="addModule(2); $(this).addClass('ds-none');">
+                                <h5><i class="fa fa-bed" style="vertical-align:middle;"></i>&nbsp;&nbsp;<small>Adicionar módulo quarto / suite&nbsp;<small>(Apenas um por página)</small></small></h5>
+                            </div>
+                            <div class="alert alert-primary" style="cursor:pointer;" role="alert" onclick="addModule(3);">
+                                <h5><i class="ti-gallery" style="vertical-align:middle;"></i>&nbsp;&nbsp;<small>Adicionar módulo galeria de fotos</small></h5>
                             </div>
                         </div>
                     </div>
@@ -109,6 +112,11 @@
     function addModule(id) {
         $.get('/Board/GetModule?id=' + id, function (response) {
             $('#page-module-wrapper').append(response);
+            setTimeout(function () {
+                $('html, body').animate({
+                    scrollTop: $('#page-module-wrapper').find('.module:last-of-type').offset().top - 50
+                });
+            });
         });
     }
 
@@ -125,6 +133,7 @@
                 modules: []
             };
 
+            // Content Module
             var contentModules = $('.content-module');
             for (var i = 0; i < contentModules.length; i++) {
                 var file = $(contentModules[i]).find('.file');
@@ -150,6 +159,76 @@
                 request.modules.push(module);
             }
 
+            // Room Module
+            var roomModules = $('.room-module');
+            for (var i = 0; i < roomModules.length; i++) {
+                var file = $(roomModules[i]).find('.file');
+                var module = {
+                    type: 'room-module',
+                    title: $(roomModules[i]).find('.title').val(),
+                    description: $(roomModules[i]).find('.ql-editor').html(),
+                    image: file.attr('blob'),
+                    imageName: file.attr('imageName'),
+                    attributes: [],
+                    higherPrice: $(roomModules[i]).find('.higher-price').val(),
+                    lowerPrice: $(roomModules[i]).find('.lower-price').val(),
+                };
+
+                if (module.description == "<p><br></p>") {
+                    toastr.error('Preencha o conteúdo');
+                    $(roomModules[i]).find('.ql-editor').parent().addClass('border-mandatory');
+                    $('html, body').animate({
+                        scrollTop: $(roomModules[i]).find('.ql-editor').offset().top - 50
+                    });
+                    return;
+                } else {
+                    $(roomModules[i]).find('.ql-editor').parent().removeClass('border-mandatory');
+                }
+
+                var attributes = $(roomModules[i]).find('table tbody tr');
+                for (var a = 0; a < attributes.length; a++) {
+                    if ($(attributes[a]).find('.attribute-value').val() != null) {
+                        var attributeValue = {
+                            id: $(attributes[a]).find('.attribute').attr('data-attribute-id'),
+                            valueId: $(attributes[a]).find('.attribute-value').val()
+                        };
+                        module.attributes.push(attributeValue);
+                    }                    
+                }
+                request.modules.push(module);
+            }  
+
+            // Gallery Module
+            var galleryModules = $('.gallery-module');
+            for (var i = 0; i < galleryModules.length; i++) {
+                var module = {
+                    type: 'gallery-module',
+                    images: []
+                };
+
+                var images = $(galleryModules[i]).find('table tbody tr');
+                for (var z = 0; z < images.length; z++) {
+                    var blob = $(images[z]).find('.file').attr('blob');
+                    if (blob != undefined && blob[0] != '') {
+                        var image = {
+                            image: $(images[z]).find('.file').attr('blob'),
+                            name: $(images[z]).find('.fileName').val()
+                        };
+                        module.images.push(image);
+                    }
+                    if (module.images.length == 0) {
+                        $('html, body').animate({
+                            scrollTop: $(galleryModules[i]).find('table tbody tr:first-of-type').offset().top - 50
+                        });
+                        toastr.error('Para adicionar um módulo galeria, deve introduzir pelo menos um foto.');
+                        return false;
+                    }
+                }
+                request.modules.push(module);
+            }
+
+            console.log(request);
+
             $('#submitPage').attr('disabled', 'disabled');
             $.post('/Board/CreatePage', { model: request }, function (response) {
                 if (response.result == 'ok') {
@@ -157,10 +236,9 @@
                 } else if (response.result == 'error-url') {
                     toastr.error('Já existe uma página na mesma localização com o mesmo nome.');
                 }
-            });
+            });           
 
             return false;
-            //form.submit();
         }
     });
 </script>

@@ -10,12 +10,20 @@
         label.error {
             color: red;
         }
+
+        .ds-none {
+            display: none !important;
+        }
     </style>
     <script src="~/Scripts/Backoffice/vendor/jquery-2.2.4.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script>
         $.validator.addMethod("ptRequired", $.validator.methods.required, "Campo obrigatório");
+        $.validator.addMethod("ptNumber", $.validator.methods.number, "Por favor insira um valor válido");
+        $.validator.addMethod("ptMin0", $.validator.methods.min, "O valor tem de ser superior a 0");
         jQuery.validator.addClassRules('required', { ptRequired: true });
+        jQuery.validator.addClassRules('number', { ptNumber: true });
+        jQuery.validator.addClassRules('majorthanzero', { ptMin0: true, min: 0.0001 });
     </script>
 
     <link href="~/Content/Backoffice/toastr.min.css" rel="stylesheet" />
