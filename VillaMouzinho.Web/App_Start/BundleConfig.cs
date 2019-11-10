@@ -50,6 +50,17 @@ namespace VillaMouzinho.Web
                   "~/Scripts/Backoffice/datatable.js",
                   "~/Scripts/Backoffice/plugins.js",
                   "~/Scripts/Backoffice/scripts.js"));
+
+            // Frontend
+            bundles.Add(new StyleBundle("~/Content/frontend-css").Include(
+                "~/Content/Frontend/styles-merged.css",
+                "~/Content/Frontend/style.css",
+                "~/Content/Frontend/custom.css"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/frontend-js").Include(
+                  "~/Scripts/Frontend/scripts.min.js",
+                  "~/Scripts/Frontend/main.min.js",
+                  "~/Scripts/Frontend/custom.js"));
         }
     }
 }
