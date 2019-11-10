@@ -2,6 +2,15 @@
     Layout = "~/Views/Shared/_Layout-Backoffice.cshtml";
 }
 
+<style>
+    select {
+        height: calc(2.25rem + 8px) !important;
+    }
+    .border-mandatory {
+        border:1px solid red !important;
+    }
+</style>
+
 <form class="main-content-inner" id="create-page-form">
     <div class="row">
         <div class="col-lg-5 col-ml-12">
@@ -12,20 +21,26 @@
                         <div class="card-body">
                             <h4 class="header-title">Criar Página</h4>
                             <div class="row">
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="col-form-label">Língua</label>
+                                        <input type="text" class="form-control" name="page-header-language" id="page-header-language" value="/pt" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-form-label">Estado&nbsp;<span class="text-danger">*</span></label>
-                                        <select class="form-control required" name="page-header-status">
+                                        <select class="form-control required" name="page-header-status" id="page-header-status">
                                             <option value="null" disabled selected>Seleccione estado</option>
                                             <option value="1">Rascunho</option>
                                             <option value="2">Publicado</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-6">
+                                <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-form-label">Tipo&nbsp;<span class="text-danger">*</span></label>
-                                        <select class="form-control required" name="page-header-type">
+                                        <select class="form-control required" name="page-header-type" id="page-header-type">
                                             <option value="null" disabled selected>Seleccione tipo</option>
                                             <option value="1">Artigo</option>
                                             <option value="2">Blog</option>
@@ -39,11 +54,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="example-text-input" class="col-form-label">URL Friendly&nbsp;<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control required" name="page-header-url" id="page-header-url" readonly/>
+                                <input type="text" class="form-control required" name="page-header-url" id="page-header-url" readonly />
                             </div>
                             <div class="form-group">
                                 <label for="example-text-input" class="col-form-label">Localização&nbsp;<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" readonly name="page-header-location" />
+                                <input type="text" class="form-control" readonly name="page-header-location" id="page-header-location" />
                             </div>
                         </div>
                     </div>
@@ -61,8 +76,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-7 col-ml-12">            
-            <div class="row mt-5" id="page-module-wrapper">                                           
+        <div class="col-lg-7 col-ml-12">
+            <div class="row mt-5" id="page-module-wrapper">
             </div>
             <div class="row">
                 <div class="col-12">
@@ -78,7 +93,7 @@
                             </div>
                         </div>
                     </div>
-                </div>  
+                </div>
             </div>
         </div>
     </div>
@@ -87,7 +102,7 @@
 <script>
     $('#page-header-title').keyup(function () {
         $.get('/Board/CreateUrlFriendly?title=' + $(this).val(), function (response) {
-            $('#page-header-url').val(response);
+            $('#page-header-url').val("/" + response);
         });
     });
 
@@ -99,8 +114,42 @@
 
     $('#create-page-form').validate({
         submitHandler: function (form) {
+            var request = {
+                pageHeader: {
+                    status: $('#page-header-status').val(),
+                    type: $('#page-header-type').val(),
+                    title: $('#page-header-title').val(),
+                    url: $('#page-header-url').val(),
+                    location: $('#page-header-location').val()
+                },
+                modules: []
+            };
+
+            var contentModules = $('.content-module');
+            for (var i = 0; i < contentModules.length; i++) {
+                var module = {
+                    title: $(contentModules[i]).find('.title').val(),
+                    description: $(contentModules[i]).find('.ql-editor').html(),
+                    image: ''
+                };
+
+                if (module.description == "<p><br></p>") {
+                    toastr.error('Preencha o conteúdo');
+                    $(contentModules[i]).find('.ql-editor').parent().addClass('border-mandatory');
+                    $('html, body').animate({
+                        scrollTop: $(contentModules[i]).find('.ql-editor').offset().top - 50
+                    });
+                    return;
+                } else {
+                    $(contentModules[i]).find('.ql-editor').parent().removeClass('border-mandatory');
+                }
+
+                request.modules.push(module);
+            }
+
+            console.log(request);
             return false;
             //form.submit();
         }
-    });   
+    });
 </script>
