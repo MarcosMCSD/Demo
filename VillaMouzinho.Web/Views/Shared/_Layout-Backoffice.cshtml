@@ -6,12 +6,42 @@
     <title>@ViewBag.Title - Backoffice</title>
     @Styles.Render("~/Content/backoffice-css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <style>
+        label.error {
+            color: red;
+        }
+    </style>
     <script src="~/Scripts/Backoffice/vendor/jquery-2.2.4.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script>
+        $.validator.addMethod("ptRequired", $.validator.methods.required, "Campo obrigatório");
+        jQuery.validator.addClassRules('required', { ptRequired: true });
+    </script>
+
     <link href="~/Content/Backoffice/toastr.min.css" rel="stylesheet" />
     <script src="~/Scripts/Backoffice/toastr.min.js"></script>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+    <!-- Theme included stylesheets -->
+    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+    <!-- Main Quill library -->
+    <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script>
+        var toolbarOptions = [
+            [{ 'font': [] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
+            [{ 'header': 1 }, { 'header': 2 }],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'align': [] }],
+            [{ 'script': 'sub' }, { 'script': 'super' }],
+            [{ 'indent': '-1' }, { 'indent': '+1' }],
+            [{ 'direction': 'rtl' }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            ['link', 'image', 'video'],
+            [{ 'color': [] }, { 'background': [] }]
+        ];
+    </script>
 </head>
 <body>
     <!--[if lt IE 8]>
@@ -546,7 +576,7 @@
                     </div>
                 </div>
             </div>
-        </div>      
+        </div>
     </div>
     <!-- page container area end -->
     @Scripts.Render("~/Scripts/backoffice-js")

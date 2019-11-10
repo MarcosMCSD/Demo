@@ -5,23 +5,38 @@
             <div class="row">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="example-text-input" class="col-form-label">Título</label>
-                        <input type="text" class="form-control" name="content-module-title-@ViewBag.RefModule" />
+                        <label for="example-text-input" class="col-form-label">Título&nbsp;<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control required" name="content-module-title-@ViewBag.RefModule" />
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group m-b-d">
+                        <label>Conteúdo</label>
+                        <div id="toolbar"></div>
+                        <div class="editor" id="edit-@ViewBag.RefModule"></div>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="example-text-input" class="col-form-label">Descrição</label>
-                        <textarea class="form-control" name="content-module-description-@ViewBag.RefModule" id="content-module-description-@ViewBag.RefModule"></textarea>                        
+                        <label class="col-form-label">Imagem</label>
+                        <input type="file" class="form-control" name="content-module-file-@ViewBag.RefModule"/>
                     </div>
-                </div>             
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<style>
+    .ql-editor {
+        height: 17rem;
+    }
+</style>
 <script>
-    $(documnet).ready(function () {
-        $('#content-module-description-@ViewBag.RefModule').summernote();
+    var quill = new Quill('#edit-@ViewBag.RefModule', {
+        modules: {
+            toolbar: toolbarOptions
+        },
+        theme: 'snow'
     });
 </script>

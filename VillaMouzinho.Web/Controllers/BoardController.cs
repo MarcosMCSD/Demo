@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using VillaMouzinho.Business.DB;
@@ -127,6 +129,12 @@ namespace VillaMouzinho.Web.Controllers
         }
 
         [HttpGet]
+        public JsonResult CreateUrlFriendly(string title)
+        {
+            return this.Json(NormalizeStringForUrl(title), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
         public ActionResult GetModule(int id)
         {
             if (id == 1)
@@ -138,6 +146,38 @@ namespace VillaMouzinho.Web.Controllers
             {
                 return PartialView("~/Views/Board/Modules/Create/_Content.cshtml");
             }
+        }
+
+        /// <summary>
+        /// Aux methods
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string NormalizeStringForUrl(string url)
+        {
+            String normalizedString = url.Normalize(NormalizationForm.FormD);
+            StringBuilder stringBuilder = new StringBuilder(url.Length);
+
+            foreach (char c in normalizedString)
+            {
+                switch (CharUnicodeInfo.GetUnicodeCategory(c))
+                {
+                    case UnicodeCategory.LowercaseLetter:
+                    case UnicodeCategory.UppercaseLetter:
+                        stringBuilder.Append(Char.ToLower(c));
+                        break;
+                    case UnicodeCategory.DecimalDigitNumber:
+                        stringBuilder.Append(c);
+                        break;
+                    case UnicodeCategory.SpaceSeparator:
+                    case UnicodeCategory.ConnectorPunctuation:
+                    case UnicodeCategory.DashPunctuation:
+                        stringBuilder.Append('-');
+                        break;
+                }
+            }
+            string result = stringBuilder.ToString();
+            return String.Join("-", result.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries)); // remove duplicate underscores
         }
     }
 }

@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_Layout-Backoffice.cshtml";
 }
 
-<div class="main-content-inner">
+<form class="main-content-inner" id="create-page-form">
     <div class="row">
         <div class="col-lg-5 col-ml-12">
             <div class="row">
@@ -15,7 +15,7 @@
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-form-label">Estado&nbsp;<span class="text-danger">*</span></label>
-                                        <select class="form-control">
+                                        <select class="form-control required" name="page-header-status">
                                             <option value="null" disabled selected>Seleccione estado</option>
                                             <option value="1">Rascunho</option>
                                             <option value="2">Publicado</option>
@@ -25,7 +25,7 @@
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-form-label">Tipo&nbsp;<span class="text-danger">*</span></label>
-                                        <select class="form-control">
+                                        <select class="form-control required" name="page-header-type">
                                             <option value="null" disabled selected>Seleccione tipo</option>
                                             <option value="1">Artigo</option>
                                             <option value="2">Blog</option>
@@ -35,15 +35,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="example-text-input" class="col-form-label">Título&nbsp;<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control required" name="page-header-title" id="page-header-title" />
                             </div>
                             <div class="form-group">
                                 <label for="example-text-input" class="col-form-label">URL Friendly&nbsp;<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control required" name="page-header-url" id="page-header-url" readonly/>
                             </div>
                             <div class="form-group">
                                 <label for="example-text-input" class="col-form-label">Localização&nbsp;<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" readonly />
+                                <input type="text" class="form-control" readonly name="page-header-location" />
                             </div>
                         </div>
                     </div>
@@ -52,27 +52,55 @@
                             <h4 class="header-title" style="text-transform:none;">Módulo de conteúdos</h4>
                             <div class="alert alert-primary" style="cursor:pointer;" role="alert" onclick="addModule(1)">
                                 <h5><i class="fa fa-align-justify" style="vertical-align:middle;"></i>&nbsp;&nbsp;<small>Adicionar módulo conteúdo livre</small></h5>
-                            </div>  
+                            </div>
                             <div class="alert alert-primary" style="cursor:pointer;" role="alert" onclick="addModule(2)">
-                                <h5><i class="fa fa-bed" style="vertical-align:middle;"></i>&nbsp;&nbsp;<small>Adicionar módulo quarto</small></h5>                                
-                            </div>                                                        
+                                <h5><i class="fa fa-bed" style="vertical-align:middle;"></i>&nbsp;&nbsp;<small>Adicionar módulo quarto</small></h5>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-7 col-ml-12">
-            <div class="row mt-5" id="page-module-wrapper">
-                <!-- basic form start -->              
+        <div class="col-lg-7 col-ml-12">            
+            <div class="row mt-5" id="page-module-wrapper">                                           
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-md-9 text-left">
+                                    <h4 class="header-title" style="text-transform:none;">Para adicionar conteúdos escolha nos módulos disponíveis</h4>
+                                </div>
+                                <div class="col-12 col-md-3 text-right">
+                                    <button type="submit" class="btn btn-primary">Criar página</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
             </div>
         </div>
     </div>
-</div>
+</form>
 
 <script>
+    $('#page-header-title').keyup(function () {
+        $.get('/Board/CreateUrlFriendly?title=' + $(this).val(), function (response) {
+            $('#page-header-url').val(response);
+        });
+    });
+
     function addModule(id) {
         $.get('/Board/GetModule?id=' + id, function (response) {
             $('#page-module-wrapper').append(response);
         });
     }
+
+    $('#create-page-form').validate({
+        submitHandler: function (form) {
+            return false;
+            //form.submit();
+        }
+    });   
 </script>
