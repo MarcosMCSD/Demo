@@ -75,6 +75,15 @@
     <Compile Include="DB\attributes_values.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\cms_page_header.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\cms_page_module_content.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\cms_page_module_mapping.cs">
+      <DependentUpon>db.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\C__migrationhistory.cs">
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
