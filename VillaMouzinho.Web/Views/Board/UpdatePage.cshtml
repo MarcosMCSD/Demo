@@ -1,0 +1,409 @@
+﻿@model VillaMouzinho.Web.Models.Board.CMS.CreatePageModel
+@{
+    Layout = "~/Views/Shared/_Layout-Backoffice.cshtml";
+}
+
+<style>
+    select {
+        height: calc(2.25rem + 8px) !important;
+    }
+
+    .border-mandatory {
+        border: 1px solid red !important;
+    }
+</style>
+
+<form class="main-content-inner" id="create-page-form">
+    <div class="row">
+        <div class="col-lg-5 col-ml-12">
+            <div class="row">
+                <!-- Textual inputs start -->
+                <div class="col-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Criar Página</h4>
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="col-form-label">Língua</label>
+                                        <input type="text" class="form-control" name="page-header-language" id="page-header-language" value="/pt" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="col-form-label">Estado&nbsp;<span class="text-danger">*</span></label>
+                                        <select class="form-control required" name="page-header-status" id="page-header-status" disabled>
+                                            <option @(Model.pageHeader.status == 1 ? "selected" : "") value="1">Rascunho</option>
+                                            <option @(Model.pageHeader.status == 2 ? "selected" : "") value="2">Publicado</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="col-form-label">Tipo&nbsp;<span class="text-danger">*</span></label>
+                                        <select class="form-control required" name="page-header-type" id="page-header-type" disabled>
+                                            <option @(Model.pageHeader.type == 1 ? "selected" : "") value="1">Artigo</option>
+                                            <option @(Model.pageHeader.type == 2 ? "selected" : "") value="2">Blog</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="example-text-input" class="col-form-label">Título&nbsp;<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control required" name="page-header-title" id="page-header-title" value="@Model.pageHeader.title" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label for="example-text-input" class="col-form-label">URL Friendly</label>
+                                <input type="text" class="form-control" name="page-header-url" id="page-header-url" value="@Model.pageHeader.url" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label for="example-text-input" class="col-form-label">Localização</label>
+                                <input type="text" class="form-control" readonly name="page-header-location" id="page-header-location" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-top:2rem;">
+                        <div class="card-body">
+                            <h4 class="header-title" style="text-transform:none;">Módulo de conteúdos</h4>
+                            <div class="alert alert-primary" style="cursor:pointer;" role="alert">
+                                <h5><i class="fa fa-align-justify" style="vertical-align:middle;"></i>&nbsp;&nbsp;<small>Adicionar módulo conteúdo livre</small></h5>
+                            </div>
+                            <div class="alert alert-primary" style="cursor:pointer;" id="add-room-module-btn" role="alert">
+                                <h5><i class="fa fa-bed" style="vertical-align:middle;"></i>&nbsp;&nbsp;<small>Adicionar módulo quarto / suite&nbsp;<small>(Apenas um por página)</small></small></h5>
+                            </div>
+                            <div class="alert alert-primary" style="cursor:pointer;" role="alert">
+                                <h5><i class="ti-gallery" style="vertical-align:middle;"></i>&nbsp;&nbsp;<small>Adicionar módulo galeria de fotos</small></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 col-ml-12">
+            <div class="row mt-5" id="page-module-wrapper">
+                @if (Model.modules.Any())
+                {
+                    foreach (var item in Model.modules)
+                    {
+                        var unique = Guid.NewGuid();
+                        if (item.type == "content-module")
+                        {
+                            <div class="col-12 content-module module" style="margin-bottom:2rem;" id="content-module-@unique">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title" style="text-transform:inherit !important;">Módulo conteúdo livre</h4>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="example-text-input" class="col-form-label">Título&nbsp;<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control required title" name="content-module-title-@unique" value="@item.title" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group m-b-d">
+                                                    <label>Conteúdo&nbsp;<span class="text-danger">*</span></label>
+                                                    <div id="toolbar"></div>
+                                                    <div class="editor" id="edit-@unique">
+                                                        @Html.Raw(item.description)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    @if (!string.IsNullOrEmpty(item.imageName))
+                                                    {
+                                                    <span><i class="fa fa-file-image-o" style="vertical-align:middle;"></i>&nbsp;&nbsp;@item.imageName</span>
+                                                    }
+                                                    else
+                                                    {
+                                                    <span><i class="fa fa-file-image-o" style="vertical-align:middle;"></i>&nbsp;&nbsp;Este módulo ainda não tem imagem</span>
+                                                    }
+                                                    @*<input type="file" class="form-control file" name="content-module-file-@unique" id="file-@unique" />*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer text-right" style="background-color: #303641">
+                                        <ul class="list-inline" style="color:white;">
+                                            <li class="list-inline-item"><button class="btn btn-danger btn-sm" disabled type="button">Remover módulo</button></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <style>
+                                .ql-editor {
+                                    height: 17rem;
+                                }
+                            </style>
+                            <script>
+                                var quill = new Quill('#edit-@unique', {
+                                    modules: {
+                                        toolbar: toolbarOptions
+                                    },
+                                    theme: 'snow'
+                                });
+
+                                quill.enable(false);
+
+                                $('#file-@unique').change(function () {
+                                    var input = this;
+                                    var ext = input.files[0].name.substring(input.files[0].name.lastIndexOf('.') + 1).toLowerCase();
+
+                                    const fsize = input.files.item(0).size;
+                                    const file = Math.round((fsize / 1024));
+
+                                    if (file >= 2500) {
+                                        $('#file-@unique').val('');
+                                        $('#file-@unique').attr('blob', '');
+                                        $('#file-@unique').attr('imageName', '');
+                                        toastr.error('A imagem que adicionou é muito grande, por favor seleccione uma imagem com tamanho menor 20MB.');
+                                        return false;
+                                    }
+
+                                    if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                                        var reader = new FileReader();
+                                        reader.onload = function (e) {
+                                            $('#file-@unique').attr('blob', e.target.result);
+                                            $('#file-@unique').attr('imageName', input.files[0].name);
+                                        };
+                                        reader.readAsDataURL(input.files[0]);
+                                    } else {
+                                        $('#file-@unique').val('');
+                                        $('#file-@unique').attr('blob', '');
+                                        $('#file-@unique').attr('imageName', '');
+                                        toastr.error('Adicione apenas ficheiros do tipo imagem');
+                                    }
+                                });
+                            </script>
+                        }
+                        else if (item.type == "room-module")
+                        {
+                            <div class="col-12 room-module module" style="margin-bottom:2rem;" id="room-module-@unique">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title" style="text-transform:inherit !important;">Módulo quarto</h4>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="example-text-input" class="col-form-label">Título&nbsp;<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control required title" disabled name="room-module-title-@unique" value="@item.title" />
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group m-b-d">
+                                                    <label>Conteúdo&nbsp;<span class="text-danger">*</span></label>
+                                                    <div id="toolbar"></div>
+                                                    <div class="editor" id="edit-@unique">
+                                                        @Html.Raw(item.description)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    @if (!string.IsNullOrEmpty(item.imageName))
+                                                    {
+                                                    <span><i class="fa fa-file-image-o" style="vertical-align:middle;"></i>&nbsp;&nbsp;@item.imageName</span>
+                                                    }
+                                                    else
+                                                    {
+                                                    <span><i class="fa fa-file-image-o" style="vertical-align:middle;"></i>&nbsp;&nbsp;Este módulo ainda não tem imagem</span>
+                                                    }
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <h4 class="header-title" style="text-transform:inherit !important; margin-top:1.5rem;">Preços</h4>
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="text-success w-100">Época baixa / dia</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control number higher-price number majorthanzero" readonly value="@item.lowerPrice" aria-label="Recipient's username" aria-describedby="basic-addon2" onchange="$(this).val($(this).val().replace(',','.'))">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">€</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="text-danger w-100">Época baixa / dia</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control number lower-price number majorthanzero" value="@item.higherPrice" readonly aria-label="Recipient's username" aria-describedby="basic-addon2" onchange="$(this).val($(this).val().replace(',','.'))">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">€</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4 class="header-title" style="text-transform:inherit !important; margin-top:1.5rem;">Características</h4>
+                                        <p class="text-muted font-14 mb-4">Adicione atributos ao quarto</p>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Atributo</th>
+                                                    <th>Valor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (item.attributes != null && item.attributes.Any())
+                                                {
+                                                    foreach (var attr in item.attributes)
+                                                    {
+
+                                                <tr>
+                                                    <td><input type="text" class="form-control" value="@attr.attributeName" readonly /></td>
+                                                    <td><input type="text" class="form-control" value="@attr.attributeValueName" readonly /></td>
+                                                </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card-footer text-right" style="background-color: #303641">
+                                        <ul class="list-inline" style="color:white;">
+                                            <li class="list-inline-item"><button class="btn btn-danger btn-sm" type="button" disabled>Remover módulo</button></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <style>
+                                .ql-editor {
+                                    height: 17rem;
+                                }
+                            </style>
+                            <script>
+                                var quill = new Quill('#edit-@unique', {
+                                    modules: {
+                                        toolbar: toolbarOptions
+                                    },
+                                    theme: 'snow'
+                                });
+
+                                quill.enable(false);
+
+                                $('#file-@unique').change(function () {
+                                    var input = this;
+                                    var ext = input.files[0].name.substring(input.files[0].name.lastIndexOf('.') + 1).toLowerCase();
+
+                                    const fsize = input.files.item(0).size;
+                                    const file = Math.round((fsize / 1024));
+
+                                    if (file >= 2500) {
+                                        $('#file-@unique').val('');
+                                        $('#file-@unique').attr('blob', '');
+                                        $('#file-@unique').attr('imageName', '');
+                                        toastr.error('A imagem que adicionou é muito grande, por favor seleccione uma imagem com tamanho menor 20MB.');
+                                        return false;
+                                    }
+
+                                    if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                                        var reader = new FileReader();
+                                        reader.onload = function (e) {
+                                            $('#file-@unique').attr('blob', e.target.result);
+                                            $('#file-@unique').attr('imageName', input.files[0].name);
+                                        };
+                                        reader.readAsDataURL(input.files[0]);
+                                    } else {
+                                        $('#file-@unique').val('');
+                                        $('#file-@unique').attr('blob', '');
+                                        $('#file-@unique').attr('imageName', '');
+                                        toastr.error('Adicione apenas ficheiros do tipo imagem');
+                                    }
+                                });
+                            </script>
+                        }
+                        else if (item.type == "gallery-module")
+                        {
+                            <div class="col-12 gallery-module module" style="margin-bottom:2rem;" id="gallery-module-@unique">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title" style="text-transform:inherit !important;">Módulo galeria de fotos</h4>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Ficheiro</th>
+                                                                <th>Nome imagem</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var image in item.images)
+                                                            {
+                                                                <tr>
+                                                                    <td colspan="2">@image.name</td>                                                                    
+                                                                </tr>
+                                                            }
+                                                        </tbody>                                                       
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer text-right" style="background-color: #303641">
+                                        <ul class="list-inline" style="color:white;">
+                                            <li class="list-inline-item"><button class="btn btn-danger btn-sm" type="button" disabled>Remover módulo</button></li>                                           
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+    $('.file').change(function () {
+        var input = this;
+        var ext = input.files[0].name.substring(input.files[0].name.lastIndexOf('.') + 1).toLowerCase();
+
+        const fsize = input.files.item(0).size;
+        const file = Math.round((fsize / 1024));
+
+        if (file >= 2500) {
+            $(input).val('');
+            $(input).attr('blob', '');
+            $(input).attr('imageName', '');
+            toastr.error('A imagem que adicionou é muito grande, por favor seleccione uma imagem com tamanho menor 20MB.');
+            return false;
+        }
+
+        if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $(input).attr('blob', e.target.result);
+                $(input).parent().parent().find('.fileName').val(input.files[0].name);
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            $(input).val('');
+            $(input).attr('blob', '');
+            $(input).attr('imageName', '');
+            toastr.error('Adicione apenas ficheiros do tipo imagem');
+        }
+    });
+                            </script>
+                        }
+                    }
+                }
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-md-9 text-left">
+                                    <h4 class="header-title" style="text-transform:none;">Para adicionar conteúdos escolha nos módulos disponíveis</h4>
+                                </div>
+                                <div class="col-12 col-md-3 text-right">
+                                    <button type="submit" id="submitPage" disabled class="btn btn-primary">Criar página</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

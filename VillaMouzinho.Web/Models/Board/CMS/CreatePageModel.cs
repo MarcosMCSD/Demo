@@ -47,7 +47,9 @@ namespace VillaMouzinho.Web.Models.Board.CMS
     public class SelectedAttributoDto
     {
         public int id { get; set; }
+        public string attributeName { get; set; }
         public int valueId { get; set; }
+        public string attributeValueName { get; set; }
     }
 
     public class ImageDto
