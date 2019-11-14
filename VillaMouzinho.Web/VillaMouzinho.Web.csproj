@@ -321,6 +321,12 @@
     <Content Include="Content\FrontImages\logo_sm.png" />
     <Content Include="Content\FrontImages\slider_1.jpg" />
     <Content Include="Content\FrontImages\slider_2.jpg" />
+    <Content Include="Content\FrontImages\VillaMouzinha_Quartos_01.jpg" />
+    <Content Include="Content\FrontImages\VillaMouzinha_Quartos_02.2.jpg" />
+    <Content Include="Content\FrontImages\VillaMouzinha_Quartos_03.jpg" />
+    <Content Include="Content\FrontImages\VillaMouzinha_Quartos_04.jpg" />
+    <Content Include="Content\FrontImages\VillaMouzinha_Quartos_05.jpg" />
+    <Content Include="Content\FrontImages\VillaMouzinha_Quartos_06.jpg" />
     <Content Include="Content\FrontImages\VillaMouzinha_Slide_01.jpg" />
     <Content Include="Content\FrontImages\VillaMouzinha_Slide_02.jpg" />
     <Content Include="Content\FrontImages\VillaMouzinha_Slide_03.jpg" />
@@ -451,6 +457,7 @@
     <Content Include="Views\Board\Modules\Create\_Gallery.cshtml" />
     <Content Include="Views\Board\UpdatePage.cshtml" />
     <Content Include="Views\Home\Quartos.cshtml" />
+    <Content Include="Views\Home\Reserva.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

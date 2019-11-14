@@ -15,8 +15,11 @@ namespace VillaMouzinho.Web.Controllers
 
         public ActionResult Quartos()
         {
-            ViewBag.Message = "Your contact page.";
+            return View();
+        }
 
+        public ActionResult Reserva()
+        {
             return View();
         }
 
