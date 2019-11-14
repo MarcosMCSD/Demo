@@ -61,7 +61,8 @@ namespace VillaMouzinho.Web.Controllers
         [HttpPost]
         public ActionResult CreateAttribute(string name, string value1, string description1, string value2, string description2)
         {
-            var attribute = new attributes() {
+            var attribute = new attributes()
+            {
                 NAME = name
             };
             db.attributes.Add(attribute);
@@ -110,14 +111,14 @@ namespace VillaMouzinho.Web.Controllers
         {
             var attribute = db.attributes.FirstOrDefault(x => x.ID == id);
 
-            if(attribute != null)
+            if (attribute != null)
             {
                 attribute.NAME = name;
                 db.SaveChanges();
 
                 var value1DB = db.attributes_values.FirstOrDefault(x => x.ID == idvalue1);
 
-                if(value1DB != null)
+                if (value1DB != null)
                 {
                     value1DB.VALUE = value1;
                     value1DB.DESCRIPTION = description1;
@@ -162,7 +163,7 @@ namespace VillaMouzinho.Web.Controllers
             page.ID = !string.IsNullOrEmpty(model.pageHeader.id) ? model.pageHeader.id : Guid.NewGuid().ToString();
             page.TITLE = model.pageHeader.title;
             page.STATUS = model.pageHeader.status;
-            page.TYPE = model.pageHeader.type;            
+            page.TYPE = model.pageHeader.type;
             page.ACTIVE = true;
             page.CREATION_DATE = DateTime.Now;
             if (!string.IsNullOrEmpty(model.pageHeader.location))
@@ -221,7 +222,7 @@ namespace VillaMouzinho.Web.Controllers
                         db.cms_page_module_mapping.Add(contentModuleMapping);
                         db.SaveChanges();
                     }
-                    else if(item.type == "gallery-module" && item.images != null && item.images.Any())
+                    else if (item.type == "gallery-module" && item.images != null && item.images.Any())
                     {
                         var galleryModule = new cms_page_module_gallery();
                         galleryModule.CREATION_DATE = DateTime.Now;
@@ -237,7 +238,7 @@ namespace VillaMouzinho.Web.Controllers
                             galleryImage.IMAGE = Convert.FromBase64String(image.image.Split(',')[1]);
                             galleryImage.EXTENSON = "." + image.image.Split('/')[1].Split(';')[0];
                             galleryImage.GALLERY_ID = thisGalleryModuleId;
-                            db.cms_page_module_gallery_items.Add(galleryImage);                            
+                            db.cms_page_module_gallery_items.Add(galleryImage);
                         }
                         db.SaveChanges();
 
@@ -250,7 +251,7 @@ namespace VillaMouzinho.Web.Controllers
                         db.cms_page_module_mapping.Add(galleryModuleMapping);
                         db.SaveChanges();
                     }
-                    else if(item.type == "room-module")
+                    else if (item.type == "room-module")
                     {
                         var roomModule = new cms_page_module_room();
                         roomModule.TITLE = item.title;
@@ -269,7 +270,7 @@ namespace VillaMouzinho.Web.Controllers
                                 roomModule.HIGHER_PRICE = decimal.Parse(item.higherPrice.Replace('.', ','));
                             }
                             catch (Exception)
-                            {                                
+                            {
                             }
                         }
 
@@ -318,6 +319,94 @@ namespace VillaMouzinho.Web.Controllers
         }
 
         [HttpGet]
+        public ActionResult UpdatePage(string id)
+        {
+            var Page = db.cms_page_header.Where(x => x.ID == id).FirstOrDefault();
+            var Model = new CreatePageModel();
+            Model.pageHeader = new PagerHeaderDto();
+            Model.pageHeader.id = id;
+            Model.pageHeader.status = Page.STATUS;
+            Model.pageHeader.type = Page.TYPE;
+            Model.pageHeader.title = Page.TITLE;
+            Model.pageHeader.url = Page.URL;
+            Model.pageHeader.location = "";
+
+            ViewBag.Title = "Página " + Model.pageHeader.title;
+            FullBreadcrumb.Add("Home|Board/Index");
+            FullBreadcrumb.Add("Conteúdos|#");
+            FullBreadcrumb.Add("Editar Página|Board/UpdatePage?id=" + id);
+            BuildFastBreadCrumb(FullBreadcrumb, 1);
+
+            var Modules = db.cms_page_module_mapping.Where(x => x.PAGE_HEADER_ID == id).ToList();
+
+            if (Modules.Any())
+            {
+                Model.modules = new List<ModuleDto>();
+                foreach (var item in Modules)
+                {
+                    if (item.TYPE == "content-module")
+                    {
+                        var ContentModuleDB = db.cms_page_module_content.Where(x => x.ID == item.MODULE_ID).FirstOrDefault();
+                        var ModuleDto = new ModuleDto();
+                        ModuleDto.type = "content-module";
+                        ModuleDto.title = ContentModuleDB.TITLE;
+                        ModuleDto.description = ContentModuleDB.DESCRIPTION;
+                        ModuleDto.imageName = ContentModuleDB.IMAGE_NAME;
+                        Model.modules.Add(ModuleDto);
+                    }
+                    else if (item.TYPE == "room-module")
+                    {
+                        var RoomModuleDB = db.cms_page_module_room.Where(x => x.ID == item.MODULE_ID).FirstOrDefault();
+                        var ModuleDto = new ModuleDto();
+                        ModuleDto.type = "room-module";
+                        ModuleDto.title = RoomModuleDB.TITLE;
+                        ModuleDto.description = RoomModuleDB.DESCRIPTION;
+                        ModuleDto.imageName = RoomModuleDB.IMAGE_NAME;
+                        ModuleDto.higherPrice = RoomModuleDB.HIGHER_PRICE.HasValue ? RoomModuleDB.HIGHER_PRICE.Value.ToString() : "";
+                        ModuleDto.lowerPrice = RoomModuleDB.LOWER_PRICE.HasValue ? RoomModuleDB.LOWER_PRICE.Value.ToString() : "";
+
+                        var Attributes = db.cms_page_module_room_attributes.Where(x => x.ROOM_ID == RoomModuleDB.ID).ToList();
+                        if (Attributes.Any())
+                        {
+                            ModuleDto.attributes = new List<SelectedAttributoDto>();
+                            foreach (var attr in Attributes)
+                            {
+                                var ThisAttribute = db.attributes.Where(x => x.ID == attr.ATTRIBUTE_ID).FirstOrDefault();
+                                var ThisAttributeValue = db.attributes_values.Where(x => x.ID == attr.ATTRIBUTE_VALUE_ID).FirstOrDefault();
+                                var AttributeDto = new SelectedAttributoDto();
+                                AttributeDto.attributeName = ThisAttribute.NAME;
+                                AttributeDto.attributeValueName = ThisAttributeValue.VALUE;
+                                ModuleDto.attributes.Add(AttributeDto);
+                            }
+                        }
+                        Model.modules.Add(ModuleDto);
+                    }
+                    else if (item.TYPE == "gallery-module")
+                    {
+                        var GalleryModuleDB = db.cms_page_module_gallery.Where(x => x.ID == item.MODULE_ID).FirstOrDefault();
+                        var GalleryItemsDB = db.cms_page_module_gallery_items.Where(x => x.GALLERY_ID == GalleryModuleDB.ID).ToList();
+
+                        if (GalleryItemsDB.Any())
+                        {
+                            var ModuleDto = new ModuleDto();
+                            ModuleDto.type = "gallery-module";
+                            ModuleDto.images = new List<ImageDto>();
+                            foreach (var galleryItem in GalleryItemsDB)
+                            {
+                                var GalleryItemDto = new ImageDto();
+                                GalleryItemDto.name = galleryItem.IMAGE_NAME;
+                                ModuleDto.images.Add(GalleryItemDto);
+                            }
+                            Model.modules.Add(ModuleDto);
+                        }
+                    }
+                }
+            }
+
+            return View(Model);
+        }
+
+        [HttpGet]
         public JsonResult CreateUrlFriendly(string title)
         {
             return this.Json(NormalizeStringForUrl(title), JsonRequestBehavior.AllowGet);
@@ -328,7 +417,7 @@ namespace VillaMouzinho.Web.Controllers
         {
             ViewBag.RefModule = Guid.NewGuid();
             if (id == 1)
-            {               
+            {
                 return PartialView("~/Views/Board/Modules/Create/_Content.cshtml");
             }
             else if (id == 2)

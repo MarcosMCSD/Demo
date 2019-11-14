@@ -449,6 +449,7 @@
     <Content Include="Views\Shared\_Layout-Frontend.cshtml" />
     <Content Include="Views\Board\Modules\Create\_Room.cshtml" />
     <Content Include="Views\Board\Modules\Create\_Gallery.cshtml" />
+    <Content Include="Views\Board\UpdatePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
