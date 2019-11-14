@@ -1,0 +1,83 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout-Backoffice.cshtml";
+}
+
+<div class="main-content-inner">
+    <div class="row">
+        <div class="col-12 mt-5">
+            <div class="card">
+                <a href="/Board/CreatePage" style="position:absolute;top:1.5rem;right:1.5rem;"><span class="ti-plus"></span>&nbsp;Criar página</a>
+                <div class="card-body">
+                    <h4 class="header-title">@ViewBag.Title</h4>
+                    <table class="table text-left">
+                        <thead class="bg-light text-capitalize">
+                            <tr>
+                                <th>Nome</th>
+                                <th>Url</th>
+                                <th>Estado</th>
+                                <th>Tipo</th>
+                                <th>Total visitas</th>                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Count > 0)
+	                        {
+	                        	foreach (var item in Model)
+                                {
+                                    <tr style="cursor:pointer;" onclick="window.location.href = '/Board/UpdatePage?id=@item.ID'">
+                                        <td>@item.TITLE</td>                                        
+                                        <td>@item.URL</td>
+                                        <td>
+                                            @if (item.STATUS == 1)
+                                            {
+                                                <span>Rascunho</span>
+                                            }
+                                            @if (item.STATUS == 2)
+                                            {
+                                                <span>Publicado</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.TYPE == 1)
+                                            {
+                                                <span>Artigo</span>
+                                            }
+                                            @if (item.TYPE == 2)
+                                            {
+                                                <span>Blog</span>
+                                            }
+                                        </td>
+                                        <td>                                           
+                                            <span>-</span>
+                                        </td>
+
+                                    </tr>
+                                }
+	                        }
+                            @*@foreach (var item in Model.Attributes)
+                            {
+                                <tr style="cursor:pointer;" onclick="window.location.href='/Board/UpdateAttribute/@item.ID'">
+                                    <td>@item.NAME</td>
+                                    <td>
+                                        @foreach (var value in item.attributes_values)
+                                        {
+                                            <span class="badge badge-primary">@value.VALUE</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }*@
+
+                            @if (Model.Count == 0)
+                            {
+                                <tr>
+                                    <td colspan="2">Não existem páginas</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
