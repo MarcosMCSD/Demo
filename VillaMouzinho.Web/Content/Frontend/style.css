@@ -2267,3 +2267,105 @@ a.hover-reverse:hover, a.hover-reverse:focus, a.hover-reverse:active {
     width: 100%;
   }
 }
+
+::-webkit-input-placeholder {
+    color:white !important;
+}
+
+::-moz-placeholder {
+    color:white !important;
+}
+
+::-ms-placeholder {
+    color:white !important;
+}
+
+::placeholder {
+    color:white !important;
+}
+
+        #colorlib-reservation .search-wrap {
+            width: 100%;
+            display: block;
+            margin-top: -6.66em;
+            z-index: 9;
+            background: #1f787b;
+            padding: 35px;
+        }
+
+        .colorlib-form .form-group {
+    margin-bottom: 15px;
+}
+
+        .colorlib-form label {
+    font-weight: 400;
+    color: #fff;
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+
+.colorlib-form .form-group .form-field {
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+.colorlib-form .form-group .form-field .icon {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 20px;
+    color: white;
+}
+
+.colorlib-form .form-group .form-field .form-control {
+        border-radius: 0;
+    padding-right: 50px;
+    font-size: 14px;
+}
+
+.form-control:active, .form-control:focus {
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-color: #4586ff;
+}
+
+.form-control:focus, .form-control:active {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 2px solid rgba(0,0,0,.8);
+}
+
+.colorlib-form .form-control {
+    height: 50px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    font-size: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    background: rgba(255,255,255,.03);
+    border: 2px solid rgba(255,255,255,.1);
+    color: white;
+}
+
+.colorlib-form .btn-block {
+    margin-top: 31px;
+    padding: 13px!important;
+}
+
+.btn-primary{
+    border-radius: 0;
+}

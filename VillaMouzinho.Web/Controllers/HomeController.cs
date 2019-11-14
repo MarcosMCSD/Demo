@@ -13,6 +13,13 @@ namespace VillaMouzinho.Web.Controllers
             return View();
         }
 
+        public ActionResult Quartos()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
